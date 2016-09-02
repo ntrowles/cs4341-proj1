@@ -2,6 +2,11 @@ package edu.wpi.ntrowles.cs4313.proj1;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Nick Rowles
+ * Encodes all information about the problem state.
+ */
 public class Problem {
 	private double startNum;
 	private double endNum;
@@ -33,6 +38,11 @@ public class Problem {
 		this.maxTime = maxTime;
 	}
 
+	/**
+	 * Contains the entire path so far
+	 * @return A list of strings representing operators 
+	 * used so far.
+	 */
 	public List<String> getOperators() {
 		return operators;
 	}
@@ -41,6 +51,14 @@ public class Problem {
 		this.operators = operators;
 	}
 	
+	/**
+	 * Constructor for the problem state
+	 * @param startNum Starting state.
+	 * @param endNum Ending state.
+	 * @param maxTime Time taken to go down a path.
+	 * @param operators Path selection.
+	 * @param searchType Path selector.
+	 */
 	public Problem(double startNum, double endNum, double maxTime, List<String> operators, String searchType){
 		this.startNum = startNum;
 		this.endNum = endNum;
@@ -49,6 +67,11 @@ public class Problem {
 		this.searchType = searchType;
 	}
 
+	/**
+	 * Used to determine if a greedy search or a 
+	 * iterative deepening search will be used.
+	 * @return A string representing the search type.
+	 */
 	public String getSearchType() {
 		return searchType;
 	}
