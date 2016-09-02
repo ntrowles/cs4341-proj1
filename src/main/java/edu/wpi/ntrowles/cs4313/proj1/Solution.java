@@ -1,5 +1,8 @@
 package edu.wpi.ntrowles.cs4313.proj1;
 
-public class Solution {
+import java.util.List;
 
+public class Solution {
+	private List<String> path;
+	
 }
