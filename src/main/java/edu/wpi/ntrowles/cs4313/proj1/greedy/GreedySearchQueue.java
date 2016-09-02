@@ -10,7 +10,7 @@ public class GreedySearchQueue implements Queue {
 	private LinkedList<Node> queue;
 	
 	public GreedySearchQueue(){
-		
+		queue = new LinkedList<Node>();
 	}
 	
 	public void enqueue(Node node, Problem problem) {
@@ -30,7 +30,7 @@ public class GreedySearchQueue implements Queue {
 	}
 	
 	public boolean isEmpty(){
-		return queue.size() > 0;
+		return queue.size() == 0;
 	}
 
 }

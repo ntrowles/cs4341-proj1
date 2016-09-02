@@ -30,12 +30,12 @@ public class Main {
 		
 		Solution solution;
 		//Check which type of search to run
-		if(problem.getSearchType() == "greedy"){
+		if(problem.getSearchType().equals("greedy")){
 			//Run greedy search on problem
 			GreedySearch gSearch = new GreedySearch();
 			solution = gSearch.search(problem);
 			
-		} else if (problem.getSearchType() == "iterative"){
+		} else if (problem.getSearchType().equals("iterative")){
 			//Run iterative deepening search on problem
 			IterativeDeepeningSearch idSearch = new IterativeDeepeningSearch();
 			solution = idSearch.search(problem);
