@@ -56,4 +56,11 @@ public class Problem {
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		
+		return builder.toString();
+	}
 }
