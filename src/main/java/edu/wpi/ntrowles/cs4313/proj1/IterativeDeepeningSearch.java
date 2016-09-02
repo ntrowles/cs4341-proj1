@@ -7,8 +7,14 @@ package edu.wpi.ntrowles.cs4313.proj1;
  * Class containing the Iterative Deepening Search uninformed search method.
  *
  */
+
+import java.util.LinkedList;
+
 public class IterativeDeepeningSearch implements Search {
 
+	
+	
+	
 	public Solution search(Problem moProblems) {
 		int depth = 0;
 		//for depth = 0 to infinity do
