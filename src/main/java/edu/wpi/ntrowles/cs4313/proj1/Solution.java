@@ -134,8 +134,13 @@ public class Solution {
 			
 			leftOperand = solution;
 		}
-		
-		//
+		builder.append("\n");
+		//additional info to print
+		builder.append("Error: " + errorMessage + "\n");
+		builder.append("Number of steps required: " + path.size() + "\n");
+		builder.append("Search required: " + timeToExec + " seconds\n");
+		builder.append("Nodes expanded: " + nodesExpanded + "\n");
+		builder.append("Maximum search depth: " + maxSearchDepth + "\n");
 		
 		return builder.toString();
 	}
