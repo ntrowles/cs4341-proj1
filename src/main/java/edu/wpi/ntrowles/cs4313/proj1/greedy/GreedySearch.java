@@ -1,4 +1,4 @@
-package edu.wpi.ntrowles.cs4313.proj1;
+package edu.wpi.ntrowles.cs4313.proj1.greedy;
 
 /**
  * 
@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
+import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
+import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
+import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
 
 public class GreedySearch implements Search {
 

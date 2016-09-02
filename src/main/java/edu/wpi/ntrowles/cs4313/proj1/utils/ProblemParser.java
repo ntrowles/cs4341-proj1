@@ -1,10 +1,12 @@
-package edu.wpi.ntrowles.cs4313.proj1;
+package edu.wpi.ntrowles.cs4313.proj1.utils;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
+import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 
 public class ProblemParser {
 	public Problem parse(String pathString) throws IOException{

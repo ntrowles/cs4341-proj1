@@ -1,6 +1,10 @@
-package edu.wpi.ntrowles.cs4313.proj1;
+package edu.wpi.ntrowles.cs4313.proj1.greedy;
 
 import java.util.LinkedList;
+
+import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
+import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
+import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 
 public class GreedySearchQueue implements Queue {
 	private LinkedList<Node> queue;

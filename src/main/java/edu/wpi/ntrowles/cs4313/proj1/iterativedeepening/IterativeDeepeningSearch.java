@@ -1,4 +1,4 @@
-package edu.wpi.ntrowles.cs4313.proj1;
+package edu.wpi.ntrowles.cs4313.proj1.iterativedeepening;
 
 /**
  * 
@@ -9,6 +9,11 @@ package edu.wpi.ntrowles.cs4313.proj1;
  */
 
 import java.util.LinkedList;
+
+import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
+import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
+import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
+import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
 
 public class IterativeDeepeningSearch implements Search {
 

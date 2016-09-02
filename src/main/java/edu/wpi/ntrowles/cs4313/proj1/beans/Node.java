@@ -1,4 +1,4 @@
-package edu.wpi.ntrowles.cs4313.proj1;
+package edu.wpi.ntrowles.cs4313.proj1.beans;
 
 public class Node {
 	private double state; //curent value

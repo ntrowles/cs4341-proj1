@@ -3,6 +3,12 @@ package edu.wpi.ntrowles.cs4313.proj1;
 import java.io.File;
 import java.io.IOException;
 
+import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
+import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
+import edu.wpi.ntrowles.cs4313.proj1.greedy.GreedySearch;
+import edu.wpi.ntrowles.cs4313.proj1.iterativedeepening.IterativeDeepeningSearch;
+import edu.wpi.ntrowles.cs4313.proj1.utils.ProblemParser;
+
 public class Main {
 
 	public static void main(String[] args) {

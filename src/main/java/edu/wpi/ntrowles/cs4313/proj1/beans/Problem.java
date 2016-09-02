@@ -1,4 +1,4 @@
-package edu.wpi.ntrowles.cs4313.proj1;
+package edu.wpi.ntrowles.cs4313.proj1.beans;
 
 import java.util.List;
 

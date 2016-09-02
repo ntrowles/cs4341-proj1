@@ -1,4 +1,7 @@
-package edu.wpi.ntrowles.cs4313.proj1;
+package edu.wpi.ntrowles.cs4313.proj1.utils;
+
+import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
+import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 
 /**
  * Generic search interface
