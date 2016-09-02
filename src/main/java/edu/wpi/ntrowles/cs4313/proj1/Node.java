@@ -55,7 +55,4 @@ public class Node {
 		this.pathCost = pathCost;
 	}
 	
-	public double getState(){
-		return state;
-	}
 }
