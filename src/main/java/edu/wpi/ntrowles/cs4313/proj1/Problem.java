@@ -80,6 +80,10 @@ public class Problem {
 		this.searchType = searchType;
 	}
 	
+//	public boolean goalTest(double state){
+//		double goalState = Solution.
+//		if(state = )
+//	}
 	@Override
 	public String toString(){
 		StringBuilder builder = new StringBuilder();

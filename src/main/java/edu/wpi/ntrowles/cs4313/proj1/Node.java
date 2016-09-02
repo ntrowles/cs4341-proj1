@@ -13,6 +13,9 @@ public class Node {
 		this.operator = operator;
 		this.depth = depth;
 		this.pathCost = pathCost;
-		
+	}
+	
+	public double getState(){
+		return state;
 	}
 }
