@@ -79,4 +79,17 @@ public class Problem {
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		
+		builder.append("Starting number: " + startNum + "\n");
+		builder.append("Target number: " + endNum + "\n");
+		builder.append("Maximum Time: " + maxTime + "\n");
+		builder.append("Operators: " + operators.toString() + "\n");
+		builder.append("Search type: " + searchType + "\n");
+		
+		return builder.toString();
+	}
 }

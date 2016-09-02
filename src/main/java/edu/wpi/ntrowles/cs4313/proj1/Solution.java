@@ -88,9 +88,12 @@ public class Solution {
 		this.errorMessage = errorMessage;
 	}
 	
+	@Override
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
 		double leftOperand = startNum;
+		
+		//Print path to get to endNum
 		for(int i=0; i<path.size(); i++){
 			builder.append("" + leftOperand + " "); //append left operand
 			
@@ -101,13 +104,43 @@ public class Solution {
 			double rightOperand = Double.parseDouble(rightOperandString);
 			builder.append(rightOperandString + " = "); //append right operator
 			
+			double solution = 0;
 			switch(operator){
 			case '+':
+				solution = leftOperand + rightOperand; 
 				break;
+				
 			case '-':
+				solution = leftOperand - rightOperand;
+				break;
+				
+			case '*':
+				solution = leftOperand * rightOperand;
+				break;
+				
+			case '/':
+				solution = leftOperand / rightOperand;
+				break;
+				
+			case '^':
+				solution = Math.pow(leftOperand, rightOperand);
+				break;
+				
+			default:
+				System.out.println("Unable to process operator type: " + operator + "; Please use +,-,*,/,^");
 				break;
 			}
+			builder.append("" + solution + "\n");
+			
+			leftOperand = solution;
 		}
+		builder.append("\n");
+		//additional info to print
+		builder.append("Error: " + errorMessage + "\n");
+		builder.append("Number of steps required: " + path.size() + "\n");
+		builder.append("Search required: " + timeToExec + " seconds\n");
+		builder.append("Nodes expanded: " + nodesExpanded + "\n");
+		builder.append("Maximum search depth: " + maxSearchDepth + "\n");
 		
 		return builder.toString();
 	}
