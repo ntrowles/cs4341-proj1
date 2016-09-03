@@ -1,20 +1,19 @@
 package edu.wpi.ntrowles.cs4313.proj1;
 
-import java.io.File;
 import java.io.IOException;
 
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
-import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj1.greedy.GreedySearch;
 import edu.wpi.ntrowles.cs4313.proj1.greedy.GreedySearchQueue;
+import edu.wpi.ntrowles.cs4313.proj1.iterativedeepening.IDSQueue;
 import edu.wpi.ntrowles.cs4313.proj1.iterativedeepening.IterativeDeepeningSearch;
 import edu.wpi.ntrowles.cs4313.proj1.utils.ProblemParser;
 
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("====ntrowles==bjsarkis==ttrieu==twitworth====");
+		System.out.println("====ntrowles==bjsarkis==ttrieu==twitworth====\n\n");
 		
 		//Parse input from logs
 		ProblemParser pars = new ProblemParser();
@@ -40,7 +39,7 @@ public class Main {
 		} else if (problem.getSearchType().equals("iterative")){
 			//Run iterative deepening search on problem
 			IterativeDeepeningSearch idSearch = new IterativeDeepeningSearch();
-			solutionInfo = idSearch.search(problem, new GreedySearchQueue());
+			solutionInfo = idSearch.search(problem, new IDSQueue());
 			
 		} else {
 			System.out.println("Unable to determine search to execute: " + problem.getSearchType() + "; use 'greedy' or 'iterative'");

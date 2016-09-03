@@ -4,42 +4,41 @@ import java.util.List;
 
 /**
  * 
- * @author Nick Rowles
- * Encodes all information about the problem state.
+ * @author ntrowles
+ * 
+ * Holds all information about the problem state.
  */
 public class Problem {
-	private double startNum;
-	private double goalNum;
-	private double maxTime;
-	private List<String> operators;
-	private String searchType;
+	//member data
+	private double startNum;         //starting state
+	private double goalNum;          //desired state
+	private double maxTime;          //time to search for solution
+	private List<String> operators;  //operators to change state
+	private String searchType;       //type of search
 	
+	//getters and setters
 	public double getStartNum() {
 		return startNum;
 	}
-
 	public void setStartNum(double startNum) {
 		this.startNum = startNum;
 	}
-
 	public double getGoalNum() {
 		return goalNum;
 	}
-
 	public void setGoalNum(double goalNum) {
 		this.goalNum = goalNum;
 	}
-
 	public double getMaxTime() {
 		return maxTime;
 	}
-
 	public void setMaxTime(double maxTime) {
 		this.maxTime = maxTime;
 	}
 
 	/**
 	 * Contains the entire path so far
+	 * 
 	 * @return A list of strings representing operators 
 	 * used so far.
 	 */
@@ -80,10 +79,6 @@ public class Problem {
 		this.searchType = searchType;
 	}
 	
-//	public boolean goalTest(double state){
-//		double goalState = Solution.
-//		if(state = )
-//	}
 	@Override
 	public String toString(){
 		StringBuilder builder = new StringBuilder();

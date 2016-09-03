@@ -13,7 +13,6 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 public abstract class GeneralSearch implements Search {
 	
 	public SolutionInfo search(Problem problem, Queue nodeQueue) {
-		
 		//Start timer
 		final Calendar startTime = Calendar.getInstance();
 		final double maxTime = problem.getMaxTime();
@@ -22,11 +21,6 @@ public abstract class GeneralSearch implements Search {
 		//more items from problem
 		final double startNum = problem.getStartNum();
 		final double goalNum = problem.getGoalNum();
-
-		//constants
-		final String errorMessage0 = "0: Search returned a solution";
-		final String errorMessage1 = "1: Search terminated early due to time constraints, no solution found";
-		final String errorMessage2 = "2: Search is exhausted, no solution found";
 		
 		//Create variables to keep track of time, nodes expanded, and max search depth
 		int nodesExpanded = 0;
@@ -49,7 +43,7 @@ public abstract class GeneralSearch implements Search {
 			Calendar curTime = Calendar.getInstance();
 			double curTimeSec = curTime.getTimeInMillis()/1000;
 			if(curTimeSec > startTimeSec + maxTime){
-				return new SolutionInfo(bestSolution, startNum, goalNum, curTimeSec-startTimeSec, nodesExpanded, maxSearchDepth, errorMessage1);
+				return new SolutionInfo(bestSolution, startNum, goalNum, curTimeSec-startTimeSec, nodesExpanded, maxSearchDepth, 1);
 			}
 			
 			//process first node in queue
@@ -63,7 +57,7 @@ public abstract class GeneralSearch implements Search {
 			
 			//if it is goal state, return solution + info
 			if(goalTest(curNode, problem)){
-				return new SolutionInfo(curSolution, startNum, goalNum, curTimeSec-startTimeSec, nodesExpanded, maxSearchDepth, errorMessage0);
+				return new SolutionInfo(curSolution, startNum, goalNum, curTimeSec-startTimeSec, nodesExpanded, maxSearchDepth, 0);
 			} 
 			//otherwise, check if the current state is better than the current best solution
 			//and assign it to bestSolution if it is
@@ -79,7 +73,7 @@ public abstract class GeneralSearch implements Search {
 			nodesExpanded++;
 		}
 		double curTimeSec = Calendar.getInstance().getTimeInMillis()/1000;
-		return new SolutionInfo(bestSolution, startNum, goalNum, curTimeSec-startTimeSec, nodesExpanded, maxSearchDepth, errorMessage0);
+		return new SolutionInfo(bestSolution, startNum, goalNum, curTimeSec-startTimeSec, nodesExpanded, maxSearchDepth, 2);
 		
 	}
 	
