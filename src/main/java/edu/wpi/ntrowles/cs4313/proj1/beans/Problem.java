@@ -59,9 +59,9 @@ public class Problem {
 	 * @param operators Path selection.
 	 * @param searchType Path selector.
 	 */
-	public Problem(double startNum, double endNum, double maxTime, List<String> operators, String searchType){
+	public Problem(double startNum, double goalNum, double maxTime, List<String> operators, String searchType){
 		this.startNum = startNum;
-		this.endNum = endNum;
+		this.goalNum = goalNum;
 		this.maxTime = maxTime;
 		this.operators = operators;
 		this.searchType = searchType;

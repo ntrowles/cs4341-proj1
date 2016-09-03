@@ -66,37 +66,5 @@ public class GreedySearch extends GeneralSearch {
 		}
 		return nodes;
 	}
-	
-	public Solution generateSolution(Node node, Problem problem){
-		//construct solution path
-		List<String> path = new LinkedList<String>();
-		Node curNode = node;
-		while(curNode.getParent() != null){
-			path.add(0, curNode.getOperator());
-			curNode = curNode.getParent();
-		}
-		//construct calcNum, startNum, endNum
-		double calcNum = node.getState();
-		double startNum = problem.getStartNum();
-		double endNum = problem.getEndNum();
-		
-		/*
-		//construct timeToExec
-		//FIXME change to actually get time
-		double timeToExec = 0;
-		
-		//construct nodesExpanded, maxSearchDepth
-		//TODO calculate at runtime
-		int nodesExpanded = 0;
-		int maxSearchDepth = 0;
-		
-		//solution constructed, no error message
-		String errorMessage = "0";
-		*/
-		
-		//construct solution
-		Solution sol = new Solution(path, calcNum, startNum, endNum);
-		return sol;
-	}
 
 }

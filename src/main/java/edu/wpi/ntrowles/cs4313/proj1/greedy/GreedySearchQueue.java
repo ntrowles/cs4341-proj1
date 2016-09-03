@@ -17,7 +17,7 @@ public class GreedySearchQueue implements Queue {
 		int numNodes = queue.size();
 		for (int i=0; i<numNodes; i++){
 			Node curNode = queue.get(i);
-			if(Math.abs(node.getState() - problem.getGoalNum()) < Math.abs(curNode.getState() - problem.getEndNum())){
+			if(Math.abs(node.getState() - problem.getGoalNum()) < Math.abs(curNode.getState() - problem.getGoalNum())){
 				queue.add(i,node);
 				return;
 			}

@@ -7,6 +7,7 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj1.greedy.GreedySearch;
+import edu.wpi.ntrowles.cs4313.proj1.greedy.GreedySearchQueue;
 import edu.wpi.ntrowles.cs4313.proj1.iterativedeepening.IterativeDeepeningSearch;
 import edu.wpi.ntrowles.cs4313.proj1.utils.ProblemParser;
 
@@ -34,12 +35,12 @@ public class Main {
 		if(problem.getSearchType().equals("greedy")){
 			//Run greedy search on problem
 			GreedySearch gSearch = new GreedySearch();
-			solutionInfo = gSearch.search(problem);
+			solutionInfo = gSearch.search(problem, new GreedySearchQueue());
 			
 		} else if (problem.getSearchType().equals("iterative")){
 			//Run iterative deepening search on problem
 			IterativeDeepeningSearch idSearch = new IterativeDeepeningSearch();
-			solutionInfo = idSearch.search(problem);
+			solutionInfo = idSearch.search(problem, new GreedySearchQueue());
 			
 		} else {
 			System.out.println("Unable to determine search to execute: " + problem.getSearchType() + "; use 'greedy' or 'iterative'");
