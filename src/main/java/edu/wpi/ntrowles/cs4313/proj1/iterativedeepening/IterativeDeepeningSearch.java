@@ -13,6 +13,8 @@ import java.util.LinkedList;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
+import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
+import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
 
 public class IterativeDeepeningSearch implements Search {
@@ -20,7 +22,7 @@ public class IterativeDeepeningSearch implements Search {
 	
 	
 	
-	public Solution search(Problem moProblems) {
+	public SolutionInfo search(Problem moProblems, Queue nodeQueue) {
 		int depth = 0;
 		//for depth = 0 to infinity do
 		//Result assigned Depth-Limited-Search (problem, depth)
