@@ -21,43 +21,8 @@ import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
 
 public class GreedySearch extends GeneralSearch {
 
-	
-	public Solution search(Problem moProblems) {
-		//Create Queue
-		GreedySearchQueue nodeQueue = new GreedySearchQueue();
-		
-		//Create solution
-		Solution bestSolution;
-		
-		//Add root node to queue
-		double startState = moProblems.getStartNum();
-		Node root = new Node(startState, null, null, 0, 0);
-		nodeQueue.enqueue(root, moProblems);
-		
-		//Start search
-		
-		//loop through queue until it is empty
-		while(!nodeQueue.isEmpty()){
-			//process first node
-			Node curNode = nodeQueue.pop();
-			
-			//if it is goal state, return solution
-			if(goalTest(curNode, moProblems)){
-				return generateSolution(curNode, moProblems);
-			}
-			
-			//expand and enqueue
-			List<Node> childNodes = expand(curNode, moProblems.getOperators());
-			for(Node node : childNodes){
-				nodeQueue.enqueue(node, moProblems);
-			}
-		}
-		return null;
-		//Solution solution = (path, calcNum, )
-	}
-	
 	public boolean goalTest(Node node, Problem problem){
-		return (node.getState() == problem.getEndNum());
+		return (node.getState() == problem.getGoalNum());
 	}
 	
 	public List<Node> expand(Node node, List<String> operators){
@@ -115,7 +80,7 @@ public class GreedySearch extends GeneralSearch {
 		double startNum = problem.getStartNum();
 		double endNum = problem.getEndNum();
 		
-		
+		/*
 		//construct timeToExec
 		//FIXME change to actually get time
 		double timeToExec = 0;
@@ -127,9 +92,10 @@ public class GreedySearch extends GeneralSearch {
 		
 		//solution constructed, no error message
 		String errorMessage = "0";
+		*/
 		
 		//construct solution
-		Solution sol = new Solution(path, calcNum, startNum, endNum, timeToExec, nodesExpanded, maxSearchDepth, errorMessage);
+		Solution sol = new Solution(path, calcNum, startNum, endNum);
 		return sol;
 	}
 

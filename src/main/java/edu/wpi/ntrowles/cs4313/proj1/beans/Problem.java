@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Problem {
 	private double startNum;
-	private double endNum;
+	private double goalNum;
 	private double maxTime;
 	private List<String> operators;
 	private String searchType;
@@ -22,12 +22,12 @@ public class Problem {
 		this.startNum = startNum;
 	}
 
-	public double getEndNum() {
-		return endNum;
+	public double getGoalNum() {
+		return goalNum;
 	}
 
-	public void setEndNum(double endNum) {
-		this.endNum = endNum;
+	public void setGoalNum(double goalNum) {
+		this.goalNum = goalNum;
 	}
 
 	public double getMaxTime() {
@@ -89,7 +89,7 @@ public class Problem {
 		StringBuilder builder = new StringBuilder();
 		
 		builder.append("Starting number: " + startNum + "\n");
-		builder.append("Target number: " + endNum + "\n");
+		builder.append("Target number: " + goalNum + "\n");
 		builder.append("Maximum Time: " + maxTime + "\n");
 		builder.append("Operators: " + operators.toString() + "\n");
 		builder.append("Search type: " + searchType + "\n");
