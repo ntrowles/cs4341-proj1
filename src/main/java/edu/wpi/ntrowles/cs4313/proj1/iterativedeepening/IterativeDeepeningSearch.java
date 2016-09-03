@@ -22,7 +22,7 @@ public class IterativeDeepeningSearch implements Search {
 	
 	
 	
-	public SolutionInfo search(Problem moProblems, Queue nodeQueue) {
+	public SolutionInfo search(Problem moProblems) {
 		int depth = 0;
 		//for depth = 0 to infinity do
 		//Result assigned Depth-Limited-Search (problem, depth)

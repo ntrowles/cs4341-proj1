@@ -15,5 +15,5 @@ public interface Search {
 	 * @param moProblems The input problem state to be dealt with.
 	 * @return States that define a goal.
 	 */
-	public SolutionInfo search(Problem moProblems, Queue nodeQueue);
+	public SolutionInfo search(Problem moProblems);
 }

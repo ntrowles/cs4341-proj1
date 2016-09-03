@@ -10,7 +10,7 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 
-public abstract class GeneralSearch implements Search {
+public class GeneralSearch {
 	
 	public SolutionInfo search(Problem problem, Queue nodeQueue) {
 		//Start timer
@@ -93,6 +93,49 @@ public abstract class GeneralSearch implements Search {
 		return sol;
 	}
 	
-	public abstract boolean goalTest(Node node, Problem problem);
-	public abstract List<Node> expand(Node node, List<String> operators);
+	public boolean goalTest(Node node, Problem problem){
+		return (node.getState() == problem.getGoalNum());
+	}
+	
+	public List<Node> expand(Node node, List<String> operators){
+		List<Node> nodes = new ArrayList<Node>();
+		
+		for(String oper : operators){
+			double leftOperand = node.getState();
+			char operator = oper.charAt(0);
+			String rightOperandString = oper.substring(2);
+			double rightOperand = Double.parseDouble(rightOperandString);
+			double solution = 0;
+			
+			switch(operator){
+			case '+':
+				solution = leftOperand + rightOperand; 
+				break;
+				
+			case '-':
+				solution = leftOperand - rightOperand;
+				break;
+				
+			case '*':
+				solution = leftOperand * rightOperand;
+				break;
+				
+			case '/':
+				solution = leftOperand / rightOperand;
+				break;
+				
+			case '^':
+				solution = Math.pow(leftOperand, rightOperand);
+				break;
+				
+			default:
+				System.out.println("Unable to process operator type: " + operator + "; Please use +,-,*,/,^");
+				break;
+			}
+			
+			Node genNode = new Node(solution, node, oper, node.getDepth()+1, node.getPathCost()+1);
+			nodes.add(genNode);
+		}
+		return nodes;
+	}
 }
