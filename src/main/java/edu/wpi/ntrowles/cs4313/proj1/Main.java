@@ -40,7 +40,7 @@ public class Main {
 		} else if (problem.getSearchType().equals("iterative")){
 			//Run iterative deepening search on problem
 			IterativeDeepeningSearch idSearch = new IterativeDeepeningSearch();
-			solutionInfo = idSearch.search(problem);
+			solutionInfo = idSearch.search(problem, new GreedySearchQueue());
 			
 		} else {
 			System.out.println("Unable to determine search to execute: " + problem.getSearchType() + "; use 'greedy' or 'iterative'");
