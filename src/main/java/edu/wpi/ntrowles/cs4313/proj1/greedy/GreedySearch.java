@@ -16,9 +16,10 @@ import java.util.PriorityQueue;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
+import edu.wpi.ntrowles.cs4313.proj1.utils.GeneralSearch;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
 
-public class GreedySearch implements Search {
+public class GreedySearch extends GeneralSearch {
 
 	
 	public Solution search(Problem moProblems) {
