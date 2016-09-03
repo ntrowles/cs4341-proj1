@@ -34,12 +34,12 @@ public class Main {
 		if(problem.getSearchType().equals("greedy")){
 			//Run greedy search on problem
 			GreedySearch gSearch = new GreedySearch();
-			solutionInfo = gSearch.search(problem, new GreedySearchQueue());
+			solutionInfo = gSearch.search(problem);
 			
 		} else if (problem.getSearchType().equals("iterative")){
 			//Run iterative deepening search on problem
 			IterativeDeepeningSearch idSearch = new IterativeDeepeningSearch();
-			solutionInfo = idSearch.search(problem, new IDSQueue());
+			solutionInfo = idSearch.search(problem);
 			
 		} else {
 			System.out.println("Unable to determine search to execute: " + problem.getSearchType() + "; use 'greedy' or 'iterative'");
