@@ -7,6 +7,12 @@ import java.util.List;
 
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 
+/**
+ * 
+ * @author ntrowles
+ * 
+ * []
+ */
 public class ProblemParser {
 	public Problem parse(String pathString) throws IOException{
 		List<String> lines = Files.readAllLines(Paths.get(pathString));

@@ -47,7 +47,7 @@ public class Node {
 		this.pathCost = pathCost;
 	}
 	
-	//Constructor
+	
 	public Node(double state, Node parent, String operator, int depth, double pathCost){
 		this.state = state;
 		this.parent = parent;

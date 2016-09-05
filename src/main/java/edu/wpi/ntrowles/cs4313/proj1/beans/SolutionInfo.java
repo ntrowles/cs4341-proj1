@@ -43,6 +43,12 @@ public class SolutionInfo{
 	public void setErrNum(int errNum) {
 		this.errNum = errNum;
 	}
+	public double getGoalNum() {
+		return goalNum;
+	}
+	public void setGoalNum(double goalNum) {
+		this.goalNum = goalNum;
+	}
 	
 	//Constructor
 	public SolutionInfo(Solution solution, double startNum, double goalNum, double timeToExec, int nodesExpanded, int maxSearchDepth, int errNum){
@@ -128,10 +134,5 @@ public class SolutionInfo{
 		
 		return builder.toString();
 	}
-	public double getGoalNum() {
-		return goalNum;
-	}
-	public void setGoalNum(double goalNum) {
-		this.goalNum = goalNum;
-	}
+	
 }

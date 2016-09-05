@@ -6,6 +6,12 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 
+/**
+ * 
+ * @author ntrowles
+ * 
+ * []
+ */
 public class GreedySearchQueue implements Queue {
 	private LinkedList<Node> queue;
 	

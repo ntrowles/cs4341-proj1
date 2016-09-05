@@ -52,6 +52,7 @@ public class Problem {
 	
 	/**
 	 * Constructor for the problem state
+	 * 
 	 * @param startNum Starting state.
 	 * @param endNum Ending state.
 	 * @param maxTime Time taken to go down a path.
@@ -69,6 +70,7 @@ public class Problem {
 	/**
 	 * Used to determine if a greedy search or a 
 	 * iterative deepening search will be used.
+	 * 
 	 * @return A string representing the search type.
 	 */
 	public String getSearchType() {

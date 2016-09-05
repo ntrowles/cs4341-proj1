@@ -20,6 +20,12 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj1.utils.GeneralSearch;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
 
+/**
+ * 
+ * @author ntrowles
+ * 
+ * 
+ */
 public class GreedySearch implements Search {
 
 	public SolutionInfo search(Problem problem){

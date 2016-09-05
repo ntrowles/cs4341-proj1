@@ -10,8 +10,20 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 
+/**
+ * 
+ * @author ntrowles
+ * 
+ * []
+ */
 public class GeneralSearch {
 	
+	/**
+	 * 
+	 * @param problem
+	 * @param nodeQueue
+	 * @return
+	 */
 	public SolutionInfo search(Problem problem, Queue nodeQueue) {
 		//Start timer
 		final Calendar startTime = Calendar.getInstance();
@@ -77,6 +89,12 @@ public class GeneralSearch {
 		
 	}
 	
+	/**
+	 * 
+	 * @param node
+	 * @param problem
+	 * @return
+	 */
 	public Solution generateSolution(Node node, Problem problem){
 		//construct solution path
 		List<String> path = new LinkedList<String>();
@@ -93,10 +111,22 @@ public class GeneralSearch {
 		return sol;
 	}
 	
+	/**
+	 * 
+	 * @param node
+	 * @param problem
+	 * @return
+	 */
 	public boolean goalTest(Node node, Problem problem){
 		return (node.getState() == problem.getGoalNum());
 	}
 	
+	/**
+	 * 
+	 * @param node
+	 * @param operators
+	 * @return
+	 */
 	public List<Node> expand(Node node, List<String> operators){
 		List<Node> nodes = new ArrayList<Node>();
 		
