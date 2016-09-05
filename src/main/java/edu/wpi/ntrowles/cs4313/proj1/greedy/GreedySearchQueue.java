@@ -12,7 +12,15 @@ public class GreedySearchQueue implements Queue {
 	public GreedySearchQueue(){
 		queue = new LinkedList<Node>();
 	}
-	
+	/**
+	 * The core of greedy search.  It is done based off the
+	 * typical queue structure.  For every node in the queue:
+	 * If the absolute distance of the new node is closer 
+	 * to the goal number than the current node, then we add it 
+	 * to the current position specified in the loop.  The operation
+	 * is then added to the final output. Otherwise the node is added
+	 * at the end and the toString is updated appropriately.
+	 */
 	public void enqueue(Node node, Problem problem) {
 		int numNodes = queue.size();
 		for (int i=0; i<numNodes; i++){

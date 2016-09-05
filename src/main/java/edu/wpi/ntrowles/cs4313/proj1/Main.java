@@ -9,7 +9,15 @@ import edu.wpi.ntrowles.cs4313.proj1.greedy.GreedySearchQueue;
 import edu.wpi.ntrowles.cs4313.proj1.iterativedeepening.IDSQueue;
 import edu.wpi.ntrowles.cs4313.proj1.iterativedeepening.IterativeDeepeningSearch;
 import edu.wpi.ntrowles.cs4313.proj1.utils.ProblemParser;
-
+/**
+ * 
+ * @author ntrowles
+ * The main method, which prints the names of all members,
+ * deals with invalid files, and chooses a method of search 
+ * based on a string tag.  The output is printed as specified
+ * in the problem.
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {

@@ -44,7 +44,16 @@ public class SolutionInfo{
 		this.errNum = errNum;
 	}
 	
-	//Constructor
+	/**
+	 * Constructor for information about a Solution
+	 * @param solution the actual solution state being dealt with.
+	 * @param startNum The original number.
+	 * @param goalNum The number we intend to reach.
+	 * @param timeToExec Time taken to execute.
+	 * @param nodesExpanded A spatial recording of expanded noded.
+	 * @param maxSearchDepth How far deep we are allowed to go.
+	 * @param errNum Used in case of an error.
+	 */
 	public SolutionInfo(Solution solution, double startNum, double goalNum, double timeToExec, int nodesExpanded, int maxSearchDepth, int errNum){
 		this.solution = solution;
 		this.startNum = startNum;
