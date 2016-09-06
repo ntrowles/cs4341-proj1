@@ -45,6 +45,12 @@ public class SolutionInfo{
 	}
 	
 	/**
+	 * Default constructor for initialization
+	 */
+	public SolutionInfo(){
+		
+	}
+	/**
 	 * Constructor for information about a Solution
 	 * @param solution the actual solution state being dealt with.
 	 * @param startNum The original number.
