@@ -8,4 +8,10 @@ public class IterativeDeepeningSearchTest {
 		String[] args = {"src/test/resources/test_3"};
 		Main.main(args);
 	}
+	
+	@Test
+	public void searchTest2(){
+		String[] args = {"src/test/resources/test_4"};
+		Main.main(args);
+	}
 }
