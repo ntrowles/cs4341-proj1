@@ -16,7 +16,7 @@ public class GeneralSearch {
 		//Start timer
 		final Calendar startTime = Calendar.getInstance();
 		final double maxTime = problem.getMaxTime();
-		final double startTimeSec = startTime.getTimeInMillis()/1000;
+		final double startTimeSec = startTime.getTimeInMillis()/1000.0;
 		
 		//more items from problem
 		final double startNum = problem.getStartNum();
@@ -41,14 +41,14 @@ public class GeneralSearch {
 		while(!nodeQueue.isEmpty()){
 			//Check if time is up, if it is, return the best solution
 			Calendar curTime = Calendar.getInstance();
-			double curTimeSec = curTime.getTimeInMillis()/1000;
+			double curTimeSec = curTime.getTimeInMillis()/1000.0;
 			if(curTimeSec > startTimeSec + maxTime){
 				return new SolutionInfo(bestSolution, startNum, goalNum, curTimeSec-startTimeSec, nodesExpanded, maxSearchDepth, 1);
 			}
 			
 			//process first node in queue
 			Node curNode = nodeQueue.pop();
-			if(curNode.getDepth() > maxSearchDepth){
+			if(curNode.getDepth() >= maxSearchDepth){
 				maxSearchDepth = curNode.getDepth();
 			}
 			
@@ -72,7 +72,7 @@ public class GeneralSearch {
 			}
 			nodesExpanded++;
 		}
-		double curTimeSec = Calendar.getInstance().getTimeInMillis()/1000;
+		double curTimeSec = Calendar.getInstance().getTimeInMillis()/1000.0;
 		return new SolutionInfo(bestSolution, startNum, goalNum, curTimeSec-startTimeSec, nodesExpanded, maxSearchDepth, 2);
 		
 	}
