@@ -70,6 +70,18 @@ public class SolutionInfo{
 		this.errNum = errNum;
 	}
 	
+	public Solution getSolution() {
+		return solution;
+	}
+	public void setSolution(Solution solution) {
+		this.solution = solution;
+	}
+	public double getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(double startNum) {
+		this.startNum = startNum;
+	}
 	@Override
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
