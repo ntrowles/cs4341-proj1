@@ -43,6 +43,38 @@ object. SolutionInfo contains all required information about the solution:
 The information in solution info is then printed out to console, and the program then terminates.
 
 ## Searches ##
+Both the Iterative Deepening and Greedy search algorithms make use of the General Search as
+defined in the textbook (page 73). The General Search algorithm is implemented in the search()
+method in GeneralSearch. This method takes a Problem and a Queue. In this case, a Queue is an
+interface with an enqueue() method, which places new elements into the queue, a pop() method to remove
+and return the first element of the queue, and isEmpty() to return whether or not the queue has any
+elements left in it.
 
+The general search loop through every element contained in the queue (in this case, Nodes), until
+a solution is found, the queue is empty, or until time runs out. In each pass through of the loop,
+the program will check if it is almost out of time, and return the best solution it found if it has.
+If not, the search will then remove the Node at the front of the Queue, and check if it is better than
+the current best solution found. If it is, it becomes the best solution. The program then checks if
+the node represents a goal state, and returns it if it is. If it's not, the program then expands the
+current Node and adds the resulting child nodes to the queue based on the enqueue() method. Finally, if
+the search has been exhausted without finding a proper solution, the program will return the best
+solution it could find.
+
+The GreedySearch search() method simply calls the GeneralSearch search() method, and passes it a
+GreedySearchQueue, which implements the Queue interface described above. The enqueue() method places
+new nodes in order based on the difference between the current state and goal state (this is the
+heuristic function used).
+
+The IterativeDeepeningSearch search() method behaves a bit differently; it loops through calling the
+GeneralSearch search() method, incrementing the depth limit by 1 each time, and decreasing the time
+available based on how much time has elapsed since the search started. The depth limit
+is enforced by the IterativeDeepeningQueue passed to the general search method. IterativeDeepeningQueue
+takes a depth limit upon construction, and its enqueue() method does not allow new nodes to enter the
+queue that have a depth greater than the depth limit. Otherwise, the queue acts as a depth-first search
+queue; it enqueues new nodes a the front. Once the general search has occurred for the given
+depth limit, the program will check if the solution is better than the current best solution, and replace
+it if it is. Next the program will check if the best solution is valid or was terminated due to a time 
+constraint. If it was, it will return the best solution, otherwise, the search will continue, and general
+search will be called again with a depth limit incremented by 1.
 		
 		

@@ -97,7 +97,7 @@ public class SolutionInfo{
 			
 			String rightOperandString = path.get(i).substring(1);
 			double rightOperand = Double.parseDouble(rightOperandString);
-			builder.append(rightOperandString + " = "); //append right operator
+			builder.append("" + rightOperand + " = "); //append right operator
 			
 			double solution = 0;
 			switch(operator){
