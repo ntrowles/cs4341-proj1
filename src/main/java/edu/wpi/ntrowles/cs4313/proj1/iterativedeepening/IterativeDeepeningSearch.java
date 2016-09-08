@@ -36,7 +36,7 @@ public class IterativeDeepeningSearch implements Search {
 		Solution bestSolution = new Solution(new ArrayList<String>(), Double.MAX_VALUE);
 		for(maxDepth = 0; maxDepth < Integer.MAX_VALUE; maxDepth++){
 			//Start time before you call each search, time buffer of 0.05 of a second.
-			double timeLeft = Calendar.getInstance().getTimeInMillis()/1000 - startTimeSec + (curProblem.getMaxTime() - 0.05);
+			double timeLeft = Calendar.getInstance().getTimeInMillis()/1000 - startTimeSec + curProblem.getMaxTime();
 			GeneralSearch gnrSearch = new GeneralSearch();
 			
 			//Pass in a new problem object with ONLY the time changed
