@@ -102,23 +102,23 @@ public class SolutionInfo{
 			double solution = 0;
 			switch(operator){
 			case '+':
-				solution = leftOperand + rightOperand; 
+				solution = (int)(leftOperand + rightOperand); 
 				break;
 				
 			case '-':
-				solution = leftOperand - rightOperand;
+				solution = (int)(leftOperand - rightOperand);
 				break;
 				
 			case '*':
-				solution = leftOperand * rightOperand;
+				solution = (int)(leftOperand * rightOperand);
 				break;
 				
 			case '/':
-				solution = leftOperand / rightOperand;
+				solution = (int)(leftOperand / rightOperand);
 				break;
 				
 			case '^':
-				solution = Math.pow(leftOperand, rightOperand);
+				solution = (int)(Math.pow(leftOperand, rightOperand));
 				break;
 				
 			default:
