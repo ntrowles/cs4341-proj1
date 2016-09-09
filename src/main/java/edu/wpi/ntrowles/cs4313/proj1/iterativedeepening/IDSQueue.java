@@ -8,7 +8,7 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 
 /**
- * 
+ * IDS queue is a FIFO queue.
  * 
  * @author ntrowles
  */
