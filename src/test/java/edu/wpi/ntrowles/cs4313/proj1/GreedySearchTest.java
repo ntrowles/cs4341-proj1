@@ -41,11 +41,4 @@ public class GreedySearchTest {
 		String[] args = {"src/test/resources/greedy_4"};
 		Main.main(args);
 	}
-	
-	//optimal test
-	@Test
-	public void searchTest3(){
-		String[] args = {"src/test/resources/test_3"};
-		Main.main(args);
-	}
 }
