@@ -12,9 +12,8 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 
 /**
  * 
- * @author ntrowles
  * 
- * []
+ * @author ntrowles
  */
 public class GeneralSearch {
 	

@@ -1,13 +1,5 @@
 package edu.wpi.ntrowles.cs4313.proj1.greedy;
 
-/**
- * 
- * @author Nick Rowles
- * @author Tommy Trieu
- * Class containing the Greedy Search informed search method.
- *
- */
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,12 +14,16 @@ import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
 
 /**
  * 
+ * 
  * @author ntrowles
- * 
- * 
  */
 public class GreedySearch implements Search {
 
+	/**
+	 * 
+	 * 
+	 * @param problem	
+	 */
 	public SolutionInfo search(Problem problem){
 		GeneralSearch gnrSearch = new GeneralSearch();
 		return gnrSearch.search(problem, new GreedySearchQueue());

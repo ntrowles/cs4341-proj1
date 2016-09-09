@@ -3,11 +3,18 @@ package edu.wpi.ntrowles.cs4313.proj1.beans;
 import java.util.List;
 
 /**
+ * Contains a solution and additional information about how
+ * a search got to the given solution. This information includes:
+ * <ul>
+ * <li> The numerical starting state
+ * <li> The numerical goal state
+ * <li> The time limit for the search algorithm
+ * <li> The total number of nodes expanded
+ * <li> The deepest depth searched
+ * <li> The number of errors found, if any
+ * </ul>
  * 
  * @author ntrowles
- *
- * Contains a solution and additional information about how
- * a search got to the given solution
  */
 public class SolutionInfo{
 	private Solution solution;
