@@ -36,7 +36,7 @@ public class GeneralSearch {
 		//Start timer
 		final Calendar startTime = Calendar.getInstance();
 
-		//Time buffer of 0.05 sec
+		//Time buffer of 0.025 sec
 		final double maxTime = problem.getMaxTime() - 0.025 ;
 		final double startTimeSec = (double) startTime.getTimeInMillis()/1000;
 		
