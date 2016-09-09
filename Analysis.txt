@@ -21,7 +21,13 @@ depth 10, nodes expanded 4190154
 summation from 0 to 10 of b^n = 4190154
 b+b^2+b^3+b^4+b^5+b^6+b^7+b^8+b^9+b^10 = 4190154
 b = EBF = 4.48
-//The effective branching factor will always be equal to 
+In this test case Greedy Search hit no dead ends, and therefore  had an EBF of 1. It didn't
+expand any nodes that were not part of the solution. Iterative deepening should have an EBF
+close to 5 since it does look through nodes that aren't a part of the solution, and there were
+5 operations. In this case it had an EBF of 4.48. It is lower than 5 because the program timed
+during the 10th depth, so not all nodes on that depth were expanded. With a good heuristic and
+low amount of dead ends, Greedy search should have close to 1 EBF, but Iterative Deepening will
+be close to the number of operators.
 
 
 Test Suite
