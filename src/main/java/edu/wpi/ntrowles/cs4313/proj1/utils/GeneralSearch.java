@@ -10,8 +10,28 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 
+/**
+ * GeneralSearch is the object the user will use to search for the solution to 
+ * a specified problem.
+ * <p>
+ * The type of search that is performed is dependent on what type of queue is 
+ * used in the search.
+ * 
+ * @see #search(Problem, Queue)
+ * @author ntrowles
+ */
 public class GeneralSearch {
 	
+	/**
+	 * Returns a solution SolutionInfo object containing all of the 
+	 * information pertaining to the solution of a specified problem.
+	 * 
+	 * @param problem	information stating requirements/limitations of the
+	 * 					search
+	 * @param nodeQueue	a priority queue
+	 * @return	SolutionInfo object containing the information pertaining to
+	 * 			the solution of the problem
+	 */
 	public SolutionInfo search(Problem problem, Queue nodeQueue) {
 		//Start timer
 		final Calendar startTime = Calendar.getInstance();
@@ -79,6 +99,15 @@ public class GeneralSearch {
 		
 	}
 	
+	/**
+	 * Produces a possible solution to the current problem.
+	 * 
+	 * @param node		the current Node
+	 * @param problem	information stating requirements/limitations of the
+	 * 					search
+	 * @return	a Solution object containing a list of equations that represent
+	 * 			the best search path 
+	 */
 	public Solution generateSolution(Node node, Problem problem){
 		//construct solution path
 		List<String> path = new LinkedList<String>();
@@ -95,10 +124,30 @@ public class GeneralSearch {
 		return sol;
 	}
 	
+	/**
+	 * Tests to see if the current Node is contains the goal state.
+	 * 
+	 * @param node		the current Node
+	 * @param problem	information stating requirements/limitations of the
+	 * 					search
+	 * @return	true if the numerical state of node is equal to the 
+	 * 			goal state; false otherwise.
+	 */
 	public boolean goalTest(Node node, Problem problem){
 		return (node.getState() == problem.getGoalNum());
 	}
 	
+	/**
+	 * Calculates the numerical state of Nodes expanded from current
+	 * node and places them in a list of Nodes.
+	 * 
+	 * @param node		the current node
+	 * @param operators	list of operators that can be executed on the
+	 * 					current node
+	 * @return	list of Nodes, each Node contaiing a numerical value
+	 * 			equal to the result of an operation being executed
+	 * 			on the current node
+	 */
 	public List<Node> expand(Node node, List<String> operators){
 		List<Node> nodes = new ArrayList<Node>();
 		

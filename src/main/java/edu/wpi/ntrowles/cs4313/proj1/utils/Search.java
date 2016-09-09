@@ -5,8 +5,8 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 
 /**
  * Generic search interface
+ * 
  * @author bgsarkis
- *
  */
 public interface Search {
 	

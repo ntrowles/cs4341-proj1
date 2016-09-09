@@ -1,15 +1,22 @@
 package edu.wpi.ntrowles.cs4313.proj1.beans;
 
 /**
+ * Nodes are used by searches to represent a state. A Node contains all
+ * necessary information about how the search reached this state. This
+ * information includes:
+ * <ul>
+ * <li> The Node's current numerical value
+ * <li> The Node's parent Node
+ * <li> The operator used to reach this Node
+ * <li> The depth of the Node
+ * <li> The cost to get from the root Node to this Node
+ * </ul>
  * 
  * @author ntrowles
- *
- * Nodes are used by searches to represent a state, and to told on to all
- * necessary information about how the search reached this state
  */
 public class Node {
 	//member data
-	private double state;     //curent value
+	private double state;     //current value
 	private Node parent;      //parent node
 	private String operator;  //operator used to get here from parent node
 	private int depth;        //depth of node
@@ -47,7 +54,7 @@ public class Node {
 		this.pathCost = pathCost;
 	}
 	
-	//Constructor
+	//constructor
 	public Node(double state, Node parent, String operator, int depth, double pathCost){
 		this.state = state;
 		this.parent = parent;

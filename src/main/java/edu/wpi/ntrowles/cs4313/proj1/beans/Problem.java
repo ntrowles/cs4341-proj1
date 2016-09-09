@@ -3,10 +3,16 @@ package edu.wpi.ntrowles.cs4313.proj1.beans;
 import java.util.List;
 
 /**
+ * Holds all information about the problem state. This information includes:
+ * <ul>
+ * <li> The numerical starting state 
+ * <li> The numerical desired state
+ * <li> The time limit for the search algorithm
+ * <li> This list of allowed operators to change a state
+ * <li> The type of search being run
+ * </ul>
  * 
  * @author ntrowles
- * 
- * Holds all information about the problem state.
  */
 public class Problem {
 	//member data
@@ -52,6 +58,7 @@ public class Problem {
 	
 	/**
 	 * Constructor for the problem state
+	 * 
 	 * @param startNum Starting state.
 	 * @param endNum Ending state.
 	 * @param maxTime Time taken to go down a path.
@@ -69,6 +76,7 @@ public class Problem {
 	/**
 	 * Used to determine if a greedy search or a 
 	 * iterative deepening search will be used.
+	 * 
 	 * @return A string representing the search type.
 	 */
 	public String getSearchType() {

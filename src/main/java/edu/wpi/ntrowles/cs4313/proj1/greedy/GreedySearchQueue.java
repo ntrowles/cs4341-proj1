@@ -6,6 +6,13 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 
+/**
+ * GreedySearchQueue is a priority queue that places higher priority on
+ * Node with numerical values closer to the numerical value of the goal
+ * state of a problem.
+ * 
+ * @author ntrowles
+ */
 public class GreedySearchQueue implements Queue {
 	private LinkedList<Node> queue;
 	
@@ -18,6 +25,9 @@ public class GreedySearchQueue implements Queue {
 	 * it is cycled through based of the absolute distance of the
 	 * state from the goal. Once the entire loop has cycled through,
 	 * then we enqueue the node at the step in the search.
+	 * 
+	 * @param node		the current Node being placed in the queue
+	 * @param problem	the current problem being solved
 	 */
 	public void enqueue(Node node, Problem problem) {
 		int numNodes = queue.size();
@@ -44,10 +54,21 @@ public class GreedySearchQueue implements Queue {
 		//System.out.println(b.toString());
 	}
 
+	/**
+	 * Removes highest priority Node from queue and returns that Node.
+	 * 
+	 * @return	Node removed from queue
+	 */
 	public Node pop() {
 		return queue.removeFirst();
 	}
 	
+	/**
+	 * Checks if queue is empty.
+	 * 
+	 * @return 	true if queue is empty;
+	 * 			false otherwise.
+	 */
 	public boolean isEmpty(){
 		return queue.size() == 0;
 	}

@@ -3,10 +3,9 @@ package edu.wpi.ntrowles.cs4313.proj1.beans;
 import java.util.List;
 
 /**
+ * Contains the path and end state for a given solution.
  * 
  * @author ntrowles
- *
- * Contains the path and end state for a given solution
  */
 public class Solution {
 	//member data

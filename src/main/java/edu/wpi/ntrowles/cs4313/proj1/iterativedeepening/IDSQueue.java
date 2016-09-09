@@ -7,12 +7,17 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 
+/**
+ * 
+ * 
+ * @author ntrowles
+ */
 public class IDSQueue implements Queue {
 	private final List<Node> nodeQueue;
 	private final int depthLimit;
 	
 	/**
-	 * Defaultly initialize an IDS queue of depth zero.
+	 * Initializes an IDS queue of depth zero.
 	 */
 	public IDSQueue(){
 		depthLimit = 0;
@@ -21,7 +26,8 @@ public class IDSQueue implements Queue {
 	
 	/**
 	 * Initialize an IDS queue with a defined depth.
-	 * @param maxDepth the depth the queue will be instantiated at.
+	 * 
+	 * @param maxDepth	the depth the queue will be instantiated at.
 	 */
 	public IDSQueue(int maxDepth){
 		depthLimit = maxDepth;
@@ -32,8 +38,9 @@ public class IDSQueue implements Queue {
 	 * We always add to the front of the queue.
 	 * This queue will act similar to (but exactly
 	 * like) a stack.
-	 * @param node the node to be added to the queue
-	 * @param problem Information needed to record problem state
+	 * 
+	 * @param node		the node to be added to the queue
+	 * @param problem	information needed to record problem state
 	 * 
 	 */
 	public void enqueue(Node node, Problem problem) {
@@ -45,6 +52,7 @@ public class IDSQueue implements Queue {
     /**
      * We pop from the front as well, as we must
      * "travel" back up the tree.
+     * 
      * @return the first node in queue
      */
 	public Node pop() {
@@ -53,7 +61,9 @@ public class IDSQueue implements Queue {
 
 	/**
 	 * Obligatory "empty" function to prevent bounds errors
-	 * @return emptines of queue
+	 * 
+	 * @return 	true if queue is empty;
+	 * 			false otherwise.
 	 */
 	public boolean isEmpty() {
 		return nodeQueue.size() == 0;
