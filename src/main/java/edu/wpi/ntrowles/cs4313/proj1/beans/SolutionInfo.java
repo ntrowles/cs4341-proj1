@@ -57,7 +57,22 @@ public class SolutionInfo{
 		this.goalNum = goalNum;
 	}
 	
-	//Constructor
+	/**
+	 * Default constructor for initialization
+	 */
+	public SolutionInfo(){
+		
+	}
+	/**
+	 * Constructor for information about a Solution
+	 * @param solution the actual solution state being dealt with.
+	 * @param startNum The original number.
+	 * @param goalNum The number we intend to reach.
+	 * @param timeToExec Time taken to execute.
+	 * @param nodesExpanded A spatial recording of expanded noded.
+	 * @param maxSearchDepth How far deep we are allowed to go.
+	 * @param errNum Used in case of an error.
+	 */
 	public SolutionInfo(Solution solution, double startNum, double goalNum, double timeToExec, int nodesExpanded, int maxSearchDepth, int errNum){
 		this.solution = solution;
 		this.startNum = startNum;
@@ -68,6 +83,18 @@ public class SolutionInfo{
 		this.errNum = errNum;
 	}
 	
+	public Solution getSolution() {
+		return solution;
+	}
+	public void setSolution(Solution solution) {
+		this.solution = solution;
+	}
+	public double getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(double startNum) {
+		this.startNum = startNum;
+	}
 	@Override
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
@@ -83,28 +110,28 @@ public class SolutionInfo{
 			
 			String rightOperandString = path.get(i).substring(1);
 			double rightOperand = Double.parseDouble(rightOperandString);
-			builder.append(rightOperandString + " = "); //append right operator
+			builder.append("" + rightOperand + " = "); //append right operator
 			
 			double solution = 0;
 			switch(operator){
 			case '+':
-				solution = leftOperand + rightOperand; 
+				solution = (int)(leftOperand + rightOperand); 
 				break;
 				
 			case '-':
-				solution = leftOperand - rightOperand;
+				solution = (int)(leftOperand - rightOperand);
 				break;
 				
 			case '*':
-				solution = leftOperand * rightOperand;
+				solution = (int)(leftOperand * rightOperand);
 				break;
 				
 			case '/':
-				solution = leftOperand / rightOperand;
+				solution = (int)(leftOperand / rightOperand);
 				break;
 				
 			case '^':
-				solution = Math.pow(leftOperand, rightOperand);
+				solution = (int)(Math.pow(leftOperand, rightOperand));
 				break;
 				
 			default:

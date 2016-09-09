@@ -1,5 +1,8 @@
 package edu.wpi.ntrowles.cs4313.proj1.iterativedeepening;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+
 /**
  * 
  * @author bgsarkis
@@ -14,39 +17,45 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
+import edu.wpi.ntrowles.cs4313.proj1.utils.GeneralSearch;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
 
 public class IterativeDeepeningSearch implements Search {
+	
 
-	
-	
-	
-	public SolutionInfo search(Problem moProblems) {
-		int depth = 0;
-		//for depth = 0 to infinity do
-		//Result assigned Depth-Limited-Search (problem, depth)
-		//If result != cutoff then return result
-		return null;
-	}
-	
-	private Solution DepthLimitedSearch (Problem problem, int limit){
-		//return recursive DLS (Make-Node(problem.Initial-State),problem, limit)
-		return null;
-	}
-	
-	private Solution RecursiveDLS (Node node, Problem problem, int limit){
-		//if problem.Goal-Test(node.State) then return Solution(node)
-		//else if limit = 0 then return curoff
-		//else
-		//      cutoff_occurred? assigned false
-		//		for each action in problem.Actions(node.State) do
-		//			child assigned Child-Node(problem, node, action)
-		//			result assigned Recursive-DLS(child, problem, limit-1)
-		//			if result = cutoff then cutoff.occurred? assigned true
-		//			else if result not != failure then return result
-		//		if cutoff_occurred? then return cutoff else return failure
-		return null;
+	public SolutionInfo search (Problem problem){
+		double goalNum = problem.getGoalNum();
+		double startTimeSec = Calendar.getInstance().getTimeInMillis()/1000.0;
+		
+		
+		int nodesExpanded = 0;
+	    int maxDepth;
+		Problem curProblem = problem;
+		SolutionInfo curSolution = new SolutionInfo();
+		Solution bestSolution = new Solution(new ArrayList<String>(), Double.MAX_VALUE);
+		for(maxDepth = 0; maxDepth < Integer.MAX_VALUE; maxDepth++){
+			//Start time before you call each search, time buffer of 0.05 of a second.
+			double timeLeft = Calendar.getInstance().getTimeInMillis()/1000 - startTimeSec + curProblem.getMaxTime();
+			GeneralSearch gnrSearch = new GeneralSearch();
+			
+			//Pass in a new problem object with ONLY the time changed
+			curSolution = gnrSearch.search(new Problem(curProblem.getStartNum(), curProblem.getGoalNum(), timeLeft, curProblem.getOperators(), curProblem.getSearchType()), new IDSQueue(maxDepth));
+			nodesExpanded += curSolution.getNodesExpanded();
+			
+			//if the current solution is better than the best solution, then it becomes the best
+			if(Math.abs(goalNum - curSolution.getSolution().getEndNum()) < Math.abs(goalNum - bestSolution.getEndNum())){
+				bestSolution = curSolution.getSolution();
+			}
+				
+				
+			//When the best solution is finally returned
+			if(curSolution.getErrNum() == 0 || curSolution.getErrNum() == 1){
+				return new SolutionInfo(bestSolution, problem.getStartNum(), goalNum, 0, nodesExpanded, maxDepth, curSolution.getErrNum());
+			}
+		}
+		return curSolution;
+		
 	}
 
 }

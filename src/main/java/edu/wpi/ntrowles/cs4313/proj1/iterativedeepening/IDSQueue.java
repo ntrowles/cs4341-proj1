@@ -9,24 +9,57 @@ import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 
 public class IDSQueue implements Queue {
 	private final List<Node> nodeQueue;
+	private final int depthLimit;
 	
+	/**
+	 * Defaultly initialize an IDS queue of depth zero.
+	 */
 	public IDSQueue(){
+		depthLimit = 0;
 		this.nodeQueue = new LinkedList<Node>();
 	}
 	
+	/**
+	 * Initialize an IDS queue with a defined depth.
+	 * @param maxDepth the depth the queue will be instantiated at.
+	 */
+	public IDSQueue(int maxDepth){
+		depthLimit = maxDepth;
+		this.nodeQueue = new LinkedList<Node>();
+	}
+	
+	/**
+	 * We always add to the front of the queue.
+	 * This queue will act similar to (but exactly
+	 * like) a stack.
+	 * @param node the node to be added to the queue
+	 * @param problem Information needed to record problem state
+	 * 
+	 */
 	public void enqueue(Node node, Problem problem) {
-		// TODO Auto-generated method stub
-
+		if(node.getDepth() <= depthLimit){
+			nodeQueue.add(0, node);
+		}
 	}
-
+	
+    /**
+     * We pop from the front as well, as we must
+     * "travel" back up the tree.
+     * @return the first node in queue
+     */
 	public Node pop() {
-		// TODO Auto-generated method stub
-		return null;
+		return nodeQueue.remove(0);
 	}
 
+	/**
+	 * Obligatory "empty" function to prevent bounds errors
+	 * @return emptines of queue
+	 */
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return nodeQueue.size() == 0;
 	}
+	
+	
+	
 
 }

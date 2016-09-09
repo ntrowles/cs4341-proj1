@@ -18,7 +18,13 @@ public class GreedySearchQueue implements Queue {
 	public GreedySearchQueue(){
 		queue = new LinkedList<Node>();
 	}
-	
+	/**
+	 * The core of greedy search.  It is done based off the
+	 * typical queue structure.  For every node in the queue:
+	 * it is cycled through based of the absolute distance of the
+	 * state from the goal. Once the entire loop has cycled through,
+	 * then we enqueue the node at the step in the search.
+	 */
 	public void enqueue(Node node, Problem problem) {
 		int numNodes = queue.size();
 		for (int i=0; i<numNodes; i++){
