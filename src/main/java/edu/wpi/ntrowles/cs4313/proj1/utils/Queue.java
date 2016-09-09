@@ -4,10 +4,9 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Node;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 
 /**
+ * Generic queue interface.
  * 
  * @author ntrowles
- * 
- * Generic queue interface.
  */
 public interface Queue {
 	

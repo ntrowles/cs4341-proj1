@@ -2,6 +2,12 @@ package edu.wpi.ntrowles.cs4313.proj1;
 
 import org.junit.Test;
 
+/**
+ * IterativeDeepeningTest is an object that tests the Iterative 
+ * Deepening Search method.
+ * 
+ * @author ntrowles
+ */
 public class IterativeDeepeningSearchTest {
 	@Test
 	public void searchTest1(){

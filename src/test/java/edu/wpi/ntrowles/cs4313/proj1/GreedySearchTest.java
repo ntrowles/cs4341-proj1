@@ -4,10 +4,9 @@ import org.junit.Test;
 import java.util.logging.*;
 
 /**
+ * GreedySearchTest is an object that tests the Greedy Search method.
  * 
  * @author ntrowles
- *
- * []
  */
 public class GreedySearchTest {
 	

@@ -20,10 +20,35 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj1.utils.GeneralSearch;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Queue;
 import edu.wpi.ntrowles.cs4313.proj1.utils.Search;
-
+/**
+ * IterativeDeepingSearch is the object that the user can use to find a path from
+ * the starting number to the goal number in a specified amount of time 
+ * using a specified set of operators using a Iterative Deepening Search algorithm.
+ * 
+ * @author ntrowles
+ */
 public class IterativeDeepeningSearch implements Search {
 	
-
+	/**
+	 * Returns a solution SolutionInfo object containing all of the 
+	 * information pertaining to the solution of a specified problem
+	 * solved through the Iterative Deepening Search method.
+	 * <p>
+	 * The application of an Iterative Deepening Search method is accomplished
+	 * through the use of a IDSQueue object, FIFO queue. The search will always
+	 * produce an optimal path because it searching every branch in each layer
+	 * of the tree, which will result in the search terminating at the lowest
+	 * possible depth.
+	 * <p>
+	 * The best solution is constantly updated, being set equal to the current 
+	 * solution only when the current solution's end number is closer to the
+	 * goal number. 
+	 * 
+	 * @param problem	an object containing all the necessary information
+	 * 					to perform a search
+	 * @return	SolutionInfo object containing the information pertaining to
+	 * 			the solution of the problem
+	 */
 	public SolutionInfo search (Problem problem){
 		double goalNum = problem.getGoalNum();
 		double startTimeSec = Calendar.getInstance().getTimeInMillis()/1000.0;
