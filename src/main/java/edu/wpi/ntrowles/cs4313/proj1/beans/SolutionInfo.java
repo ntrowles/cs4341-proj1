@@ -97,28 +97,28 @@ public class SolutionInfo{
 			
 			String rightOperandString = path.get(i).substring(1);
 			double rightOperand = Double.parseDouble(rightOperandString);
-			builder.append(rightOperandString + " = "); //append right operator
+			builder.append("" + rightOperand + " = "); //append right operator
 			
 			double solution = 0;
 			switch(operator){
 			case '+':
-				solution = leftOperand + rightOperand; 
+				solution = (int)(leftOperand + rightOperand); 
 				break;
 				
 			case '-':
-				solution = leftOperand - rightOperand;
+				solution = (int)(leftOperand - rightOperand);
 				break;
 				
 			case '*':
-				solution = leftOperand * rightOperand;
+				solution = (int)(leftOperand * rightOperand);
 				break;
 				
 			case '/':
-				solution = leftOperand / rightOperand;
+				solution = (int)(leftOperand / rightOperand);
 				break;
 				
 			case '^':
-				solution = Math.pow(leftOperand, rightOperand);
+				solution = (int)(Math.pow(leftOperand, rightOperand));
 				break;
 				
 			default:

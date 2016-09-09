@@ -15,8 +15,10 @@ public class GeneralSearch {
 	public SolutionInfo search(Problem problem, Queue nodeQueue) {
 		//Start timer
 		final Calendar startTime = Calendar.getInstance();
-		final double maxTime = problem.getMaxTime();
-		final double startTimeSec = startTime.getTimeInMillis()/1000.0;
+
+		//Time buffer of 0.05 sec
+		final double maxTime = problem.getMaxTime() - 0.05;
+		final double startTimeSec = startTime.getTimeInMillis()/1000;
 		
 		//more items from problem
 		final double startNum = problem.getStartNum();
@@ -109,23 +111,23 @@ public class GeneralSearch {
 			
 			switch(operator){
 			case '+':
-				solution = leftOperand + rightOperand; 
+				solution = (int)(leftOperand + rightOperand); 
 				break;
 				
 			case '-':
-				solution = leftOperand - rightOperand;
+				solution = (int)(leftOperand - rightOperand);
 				break;
 				
 			case '*':
-				solution = leftOperand * rightOperand;
+				solution = (int)(leftOperand * rightOperand);
 				break;
 				
 			case '/':
-				solution = leftOperand / rightOperand;
+				solution = (int)(leftOperand / rightOperand);
 				break;
 				
 			case '^':
-				solution = Math.pow(leftOperand, rightOperand);
+				solution = (int)(Math.pow(leftOperand, rightOperand));
 				break;
 				
 			default:
