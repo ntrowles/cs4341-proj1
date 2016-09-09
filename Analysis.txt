@@ -1,0 +1,32 @@
+Q) In general, how did the number of steps required by greedy search compare to iterative deepening?
+A) Iterative deepening will find the solution with the fewest steps, assuming it has time to
+complete. If time runs out, because of the larger effective branching, it will still generally
+have fewer steps in its incomplete solution.
+
+Q) How does the number of nodes expanded vary for the two techniques?
+A) Greedy search will expand fewer nodes than iterative deepening search. This is due to the fact
+that, in the worst case, an iterative deepening search will expand every node in a tree and 
+expands nodes that are at a lower depth than the goal-node multiple times. A greedy search will
+overlook expanding most of the nodes an iterative deepening search would because it only
+expands nodes on its path to the goal.
+
+
+Effective branching factor:
+As calculated on tests greedy_2 and iter_2
+A) Greedy Search: 
+depth 827, nodes expanded 828
+EBF ~ 1
+B) Iterative Deepening Search: 
+depth 10, nodes expanded 4190154
+summation from 0 to 10 of b^n = 4190154
+b+b^2+b^3+b^4+b^5+b^6+b^7+b^8+b^9+b^10 = 4190154
+b = EBF = 4.48
+//The effective branching factor will always be equal to 
+
+
+Test Suite
+0 - 2 steps both searches succeed
+1 - greedy 5 steps to solution, iterative 3 steps to solution
+2 - greedy ~830 steps before timed out, iterative 9 steps before timed out
+3 - greedy 49 steps to success (optimal solution), iterative 6 steps before timed out
+4 - impossible, both searches return 3 steps getting the closest solution possible
