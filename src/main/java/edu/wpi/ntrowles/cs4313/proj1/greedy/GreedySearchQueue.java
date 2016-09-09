@@ -30,7 +30,7 @@ public class GreedySearchQueue implements Queue {
 				for(Node iNode : queue){
 					b.append("" + iNode.getState() + ",");
 				}
-				System.out.println(b.toString());
+				//System.out.println(b.toString());
 				
 				return;
 			}
@@ -41,7 +41,7 @@ public class GreedySearchQueue implements Queue {
 		for(Node curNode : queue){
 			b.append("" + curNode.getState() + ",");
 		}
-		System.out.println(b.toString());
+		//System.out.println(b.toString());
 	}
 
 	public Node pop() {
