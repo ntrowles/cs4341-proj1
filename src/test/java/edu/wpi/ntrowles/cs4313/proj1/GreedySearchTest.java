@@ -12,7 +12,7 @@ public class GreedySearchTest {
 	
 	//sub-optimal test
 	@Test
-	public void searchTest0(){
+	public void searchTest3(){
 		String[] args = {"src/test/resources/greedy_0"};
 		Main.main(args);
 	}
@@ -31,7 +31,7 @@ public class GreedySearchTest {
 	}	
 	
 	@Test
-	public void searchTest3(){
+	public void searchTest0(){
 		String[] args = {"src/test/resources/greedy_3"};
 		Main.main(args);
 	}

@@ -51,7 +51,7 @@ public class IterativeDeepeningSearch implements Search {
 	 */
 	public SolutionInfo search (Problem problem){
 		double goalNum = problem.getGoalNum();
-		double startTimeSec = Calendar.getInstance().getTimeInMillis()/1000.0;
+		double startTimeSec = (double) Calendar.getInstance().getTimeInMillis()/1000.0;
 		
 		
 		int nodesExpanded = 0;
@@ -61,11 +61,12 @@ public class IterativeDeepeningSearch implements Search {
 		Solution bestSolution = new Solution(new ArrayList<String>(), Double.MAX_VALUE);
 		for(maxDepth = 0; maxDepth < Integer.MAX_VALUE; maxDepth++){
 			//Start time before you call each search, time buffer of 0.05 of a second.
-			double timeLeft = Calendar.getInstance().getTimeInMillis()/1000 - startTimeSec + curProblem.getMaxTime();
+			double timeLeft = (double) Calendar.getInstance().getTimeInMillis()/1000 - startTimeSec  + curProblem.getMaxTime();
 			GeneralSearch gnrSearch = new GeneralSearch();
 			
 			//Pass in a new problem object with ONLY the time changed
-			curSolution = gnrSearch.search(new Problem(curProblem.getStartNum(), curProblem.getGoalNum(), timeLeft, curProblem.getOperators(), curProblem.getSearchType()), new IDSQueue(maxDepth));
+			curProblem = new Problem(curProblem.getStartNum(), curProblem.getGoalNum(), timeLeft, curProblem.getOperators(), curProblem.getSearchType());
+			curSolution = gnrSearch.search(curProblem, new IDSQueue(maxDepth));
 			nodesExpanded += curSolution.getNodesExpanded();
 			
 			//if the current solution is better than the best solution, then it becomes the best
@@ -76,7 +77,7 @@ public class IterativeDeepeningSearch implements Search {
 				
 			//When the best solution is finally returned
 			if(curSolution.getErrNum() == 0 || curSolution.getErrNum() == 1){
-				return new SolutionInfo(bestSolution, problem.getStartNum(), goalNum, 0, nodesExpanded, maxDepth, curSolution.getErrNum());
+				return new SolutionInfo(bestSolution, problem.getStartNum(), goalNum, curSolution.getTimeToExec(), nodesExpanded, maxDepth, curSolution.getErrNum());
 			}
 		}
 		return curSolution;

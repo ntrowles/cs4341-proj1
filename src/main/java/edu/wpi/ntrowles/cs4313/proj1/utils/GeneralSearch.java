@@ -1,4 +1,4 @@
-package edu.wpi.ntrowles.cs4313.proj1.utils;
+ package edu.wpi.ntrowles.cs4313.proj1.utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,8 +37,8 @@ public class GeneralSearch {
 		final Calendar startTime = Calendar.getInstance();
 
 		//Time buffer of 0.05 sec
-		final double maxTime = problem.getMaxTime() - 0.05;
-		final double startTimeSec = startTime.getTimeInMillis()/1000;
+		final double maxTime = problem.getMaxTime() - 0.025 ;
+		final double startTimeSec = (double) startTime.getTimeInMillis()/1000;
 		
 		//more items from problem
 		final double startNum = problem.getStartNum();
