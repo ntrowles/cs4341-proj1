@@ -20,7 +20,7 @@ import edu.wpi.ntrowles.cs4313.proj1.utils.ProblemParser;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("====ntrowles==bjsarkis==ttrieu==twitworth====\n\n");
+		System.out.println("====ntrowles==bgsarkis==ttrieu==tjwhitworth====\n\n");
 		
 		//Parse input from logs
 		ProblemParser pars = new ProblemParser();
