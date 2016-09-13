@@ -77,16 +77,21 @@ public class GeneticAlgorithmSearch implements Search {
 			population = newPop;
 		}
 		
-		Solution bestSol = getBestSolution(population);
-		
-		
-		//FIXME return genetic algorithm info object
-		return null;
+		Solution bestSol = getBestSolution(population, prob, fit);
+		return generateGeneticSolutionInfo(bestSol);
 	}
 	
-	private Solution getBestSolution(ArrayList<Solution> population) {
-		// TODO Auto-generated method stub
-		return null;
+	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
+		Solution bestSol = population.get(0);
+		double bestSolFit = fit.evaluateFitness(population.get(0), prob);
+		for(Solution sol : population){
+			double curFit = fit.evaluateFitness(sol, prob);
+			if(curFit < bestSolFit){
+				bestSolFit = curFit;
+				bestSol = sol;
+			}
+		}
+		return bestSol;
 	}
 
 
