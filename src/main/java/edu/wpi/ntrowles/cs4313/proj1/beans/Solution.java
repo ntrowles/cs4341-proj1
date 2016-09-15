@@ -68,4 +68,9 @@ public class Solution {
 		this.path = path;
 		this.endNum = endNum;
 	}
+	public Solution(double startNum, List<String> path){
+		this.startNum = startNum;
+		this.path = path;
+		this.endNum = calcEndNum(startNum, path);
+	}
 }

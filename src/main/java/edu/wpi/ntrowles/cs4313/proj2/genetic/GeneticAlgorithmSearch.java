@@ -61,7 +61,7 @@ public class GeneticAlgorithmSearch implements Search {
 				path.add(operators.get(randOpIndex));
 			}
 			
-			Solution child = new Solution(path, endNum);
+			Solution child = new Solution(prob.getStartNum(), path);
 			population.add(child);
 		}
 		
