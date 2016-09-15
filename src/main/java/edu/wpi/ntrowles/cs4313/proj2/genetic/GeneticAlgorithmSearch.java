@@ -2,6 +2,7 @@ package edu.wpi.ntrowles.cs4313.proj2.genetic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import java.util.Random;
@@ -14,25 +15,55 @@ import edu.wpi.ntrowles.cs4313.proj2.utils.DifferenceFitness;
 import edu.wpi.ntrowles.cs4313.proj2.utils.Fitness;
 
 public class GeneticAlgorithmSearch implements Search {
+	//private data
+	private int popSize;
 
 	//Random object 
 	Random rand = new Random();
 	
+
+	//getters and setters
+	public int getPopSize() {
+		return popSize;
+	}
+	public void setPopSize(int popSize) {
+		this.popSize = popSize;
+	}
+	
+	//constructor
+	public GeneticAlgorithmSearch(int popSize){
+		this.setPopSize(popSize);
+	}
+	
+	//functions
+
 	public SolutionInfo search(Problem problem) {
 		//create initial population
 		ArrayList<Solution> population = generateInitialPopulation(problem);
-		
-		
+				
 		//call genetic algorithm
 		Fitness fit = new DifferenceFitness();
 		return geneticAlgorithmSearch(problem, fit, population, System.currentTimeMillis());
 	}
 	
-	
 	public ArrayList<Solution> generateInitialPopulation(Problem prob){
 		ArrayList<Solution> population = new ArrayList<Solution>();
-		
 		//generate initial population
+		for(int i = 0; i<popSize; i++){
+			//randomly generate path
+			//randomly generate size of path
+			int randPathSize = (int)(Math.random() * 10); //random path size [1,10]
+			List<String> path = new ArrayList<String>(randPathSize);
+			//randomly generate each operator in path
+			for(int j=0; j<popSize; j++){
+				List<String> operators = prob.getOperators();
+				int randOpIndex = (int)(Math.random()*operators.size());
+				path.add(operators.get(randOpIndex));
+			}
+			
+			Solution child = new Solution(prob.getStartNum(), path);
+			population.add(child);
+		}
 		
 		return population;
 	}
@@ -40,7 +71,6 @@ public class GeneticAlgorithmSearch implements Search {
 	public GeneticSolutionInfo geneticAlgorithmSearch(Problem prob, Fitness fit, ArrayList<Solution> initPop, long initTimeMillis){
 		final double timeBuffer = 0.05;
 		
-		//TODO create new genetic algorithm info object
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		population.addAll(initPop);
 		
@@ -77,16 +107,21 @@ public class GeneticAlgorithmSearch implements Search {
 			population = newPop;
 		}
 		
-		Solution bestSol = getBestSolution(population);
-		
-		
-		//FIXME return genetic algorithm info object
-		return null;
+		Solution bestSol = getBestSolution(population, prob, fit);
+		return generateGeneticSolutionInfo(bestSol);
 	}
 	
-	private Solution getBestSolution(ArrayList<Solution> population) {
-		// TODO Auto-generated method stub
-		return null;
+	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
+		Solution bestSol = population.get(0);
+		double bestSolFit = fit.evaluateFitness(population.get(0), prob);
+		for(Solution sol : population){
+			double curFit = fit.evaluateFitness(sol, prob);
+			if(curFit < bestSolFit){
+				bestSolFit = curFit;
+				bestSol = sol;
+			}
+		}
+		return bestSol;
 	}
 
 
@@ -143,5 +178,6 @@ public class GeneticAlgorithmSearch implements Search {
 		//TODO finish
 		return null;
 	}
+
 
 }
