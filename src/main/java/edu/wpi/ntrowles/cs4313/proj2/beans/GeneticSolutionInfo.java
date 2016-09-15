@@ -79,8 +79,8 @@ public class GeneticSolutionInfo extends SolutionInfo {
 		builder.append("Error: " + errorMessage + "\n");
 		builder.append("Number of steps required: " + path.size() + "\n");
 		builder.append("Search required: " + timeToExec + " seconds\n");
-		builder.append("Nodes expanded: " + nodesExpanded + "\n");
-		builder.append("Maximum search depth: " + maxSearchDepth + "\n");
+		builder.append("Population size: " + nodesExpanded + "\n");
+		builder.append("Number of Generations: " + maxSearchDepth + "\n");
 		
 		return builder.toString();
 	}
