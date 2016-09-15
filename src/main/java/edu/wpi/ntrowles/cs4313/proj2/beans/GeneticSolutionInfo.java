@@ -31,23 +31,23 @@ public class GeneticSolutionInfo extends SolutionInfo {
 			double solution = 0;
 			switch(operator){
 			case '+':
-				solution = (int)(leftOperand + rightOperand); 
+				solution = (leftOperand + rightOperand); 
 				break;
 				
 			case '-':
-				solution = (int)(leftOperand - rightOperand);
+				solution = (leftOperand - rightOperand);
 				break;
 				
 			case '*':
-				solution = (int)(leftOperand * rightOperand);
+				solution = (leftOperand * rightOperand);
 				break;
 				
 			case '/':
-				solution = (int)(leftOperand / rightOperand);
+				solution = (leftOperand / rightOperand);
 				break;
 				
 			case '^':
-				solution = (int)(Math.pow(leftOperand, rightOperand));
+				solution = (Math.pow(leftOperand, rightOperand));
 				break;
 				
 			default:
