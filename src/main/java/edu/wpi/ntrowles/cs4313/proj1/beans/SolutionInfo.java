@@ -17,13 +17,13 @@ import java.util.List;
  * @author ntrowles
  */
 public class SolutionInfo{
-	private Solution solution;
-	private double startNum;
-	private double goalNum;
-	private double timeToExec;
-	private int nodesExpanded;
-	private int maxSearchDepth;
-	private int errNum;
+	protected Solution solution;
+	protected double startNum;
+	protected double goalNum;
+	protected double timeToExec;
+	protected int nodesExpanded;
+	protected int maxSearchDepth;
+	protected int errNum;
 	
 	//Getters and Setters
 	public double getTimeToExec() {
