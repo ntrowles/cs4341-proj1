@@ -93,8 +93,9 @@ public class GeneticAlgorithmSearch implements Search {
 			
 			for(int i=0; i<population.size(); i++){
 				//randomly select two children
-				Solution x = randomSelection(probMap, population);
-				Solution y = randomSelection(probMap, population);
+				
+				Solution x = new Solution(prob.getStartNum(), initPop.get(0).getPath());//randomSelection(probMap, population);
+				Solution y = new Solution(prob.getStartNum(), initPop.get(1).getPath());//randomSelection(probMap, population);
 				
 				//breed child
 				Solution child = reproduce(x,y);
