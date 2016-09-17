@@ -28,7 +28,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>edu.wpi.ntrowles.cs4313.proj1.Main</mainClass>
+              <mainClass>edu.wpi.ntrowles.cs4313.proj2.Main</mainClass>
             </manifest>
           </archive>
         </configuration>

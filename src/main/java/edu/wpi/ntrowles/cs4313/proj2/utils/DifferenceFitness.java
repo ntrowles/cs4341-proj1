@@ -6,8 +6,7 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 public class DifferenceFitness implements Fitness {
 
 	public double evaluateFitness(Solution sol, Problem prob) {
-		// TODO Auto-generated method stub
-		return 0;
+		return Math.abs(sol.getEndNum() - prob.getGoalNum());
 	}
 
 }
