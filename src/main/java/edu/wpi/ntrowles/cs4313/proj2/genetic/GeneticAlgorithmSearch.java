@@ -2,6 +2,7 @@ package edu.wpi.ntrowles.cs4313.proj2.genetic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -199,9 +200,20 @@ public class GeneticAlgorithmSearch implements Search {
 			int opNum = rand.nextInt(problem.getOperators().size() - 1);
 			
 			//generate new values
+			LinkedList<String> newPath = new LinkedList<String>();
 			
+			for(int i = 0; i < child.getPath().size(); i++){
+				if(i == pathNum){
+					newPath.add(i, child.getStartNum() + problem.getOperators().get(opNum));
+				}
+				else{
+					newPath.add(i, child.getPath().get(i));
+				}
+			}
+			Solution newChild = new Solution(child.getStartNum(), newPath);
 			
 			//return mutated child
+			return newChild;
 		}
 		//return original child since mutation did not occur
 		return child;
