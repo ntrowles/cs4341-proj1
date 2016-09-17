@@ -99,7 +99,7 @@ public class GeneticAlgorithmSearch implements Search {
 				Solution child = reproduce(x,y);
 				
 				//mutate child
-				child = mutate(child);
+				child = mutate(prob, child);
 				
 				//add child to new population
 				newPop.add(child);
