@@ -38,8 +38,11 @@ public class GeneticAlgorithmSearch implements Search {
 		this.setPopSize(popSize);
 	}
 	
-	//functions
-
+	/**
+	 * SolutionInfo constructor.
+	 * @param problem The initial problem state to be searched through. In this case it is a population
+	 * @return A genetic alorithm search of the population
+	 */
 	public SolutionInfo search(Problem problem) {
 		//create initial population
 		ArrayList<Solution> population = generateInitialPopulation(problem);
@@ -49,6 +52,11 @@ public class GeneticAlgorithmSearch implements Search {
 		return geneticAlgorithmSearch(problem, fit, population, System.currentTimeMillis());
 	}
 	
+	/**
+	 * Generates an initial ArrayList of solutions in the form of a population.
+	 * @param prob basis to generate the initial population
+	 * @return the population
+	 */
 	public ArrayList<Solution> generateInitialPopulation(Problem prob){
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		//generate initial population
@@ -71,6 +79,14 @@ public class GeneticAlgorithmSearch implements Search {
 		return population;
 	}
 	
+	/**
+	 * Return the solution info specific to the genetic algorithm search.
+	 * @param prob Used to transfer problem state to generic solution info.
+	 * @param fit the fitness function, used for culling and elitism.
+	 * @param initPop Starting population.
+	 * @param initTimeMillis Elapsed time in milliseconds
+	 * @return Solution info of the genetic search.
+	 */
 	public GeneticSolutionInfo geneticAlgorithmSearch(Problem prob, Fitness fit, ArrayList<Solution> initPop, long initTimeMillis){
 		final double timeBuffer = 0.05;
 		
@@ -114,6 +130,13 @@ public class GeneticAlgorithmSearch implements Search {
 		return generateGeneticSolutionInfo(bestSol);
 	}
 	
+	/**
+	 * Elitism function.
+	 * @param population The current population in question.
+	 * @param prob Problem state
+	 * @param fit Used for fitness function within a population.
+	 * @return The best solution.  Those other solutions, they don't know what they are talking about.
+	 */
 	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
 		Solution bestSol = population.get(0);
 		double bestSolFit = fit.evaluateFitness(population.get(0), prob);
