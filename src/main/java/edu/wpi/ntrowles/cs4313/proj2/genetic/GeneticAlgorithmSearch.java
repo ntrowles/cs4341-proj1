@@ -58,7 +58,7 @@ public class GeneticAlgorithmSearch implements Search {
 			int randPathSize = (int)(Math.random() * 10); //random path size [1,10]
 			List<String> path = new ArrayList<String>(randPathSize);
 			//randomly generate each operator in path
-			for(int j=0; j<popSize; j++){
+			for(int j=0; j<randPathSize; j++){
 				List<String> operators = prob.getOperators();
 				int randOpIndex = (int)(Math.random()*operators.size());
 				path.add(operators.get(randOpIndex));
@@ -89,13 +89,13 @@ public class GeneticAlgorithmSearch implements Search {
 			ArrayList<Solution> newPop = new ArrayList<Solution>();
 			
 			//create map
-			Map<ArrayList<Solution>, Double> probMap = generateProbabilities(prob, fit, population);
+			Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
 			
 			for(int i=0; i<population.size(); i++){
 				//randomly select two children
 				
-				Solution x = new Solution(prob.getStartNum(), initPop.get(0).getPath());//randomSelection(probMap, population);
-				Solution y = new Solution(prob.getStartNum(), initPop.get(1).getPath());//randomSelection(probMap, population);
+				Solution x = randomSelection(prob, population);
+				Solution y = randomSelection(prob, population);
 				
 				//breed child
 				Solution child = reproduce(x,y);
@@ -129,10 +129,16 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 
 
-	private Map<ArrayList<Solution>, Double> generateProbabilities(Problem prob, Fitness fit,
-			ArrayList<Solution> population) {
-		// TODO Auto-generated method stub
-		return null;
+	private Map<Solution, Double> generateProbabilities(Problem prob, Fitness fit, ArrayList<Solution> population) {
+		Map<Solution, Double> probMap = new HashMap();
+		
+		double goalNum = prob.getGoalNum();
+		
+		for(int i = 0; i < population.size(); i++){
+			probMap.put(population.get(i), 1/(Math.abs(goalNum - population.get(i).getEndNum())));
+		}
+		
+		return probMap;
 	}
 
 
@@ -142,9 +148,24 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 
 
-	public Solution randomSelection(Map<ArrayList<Solution>, Double> probMap, ArrayList<Solution> population){
-		//TODO finish
-		return null;
+	public Solution randomSelection(Problem prob, ArrayList<Solution> population){
+		double goalNum = prob.getGoalNum();
+		Double totalSum = 0.0;
+		
+		for(int i = 0; i < population.size(); i++){
+			totalSum += 1/(Math.abs(goalNum - population.get(i).getEndNum()));
+		}
+
+		Double selection = rand.nextDouble()*totalSum;
+		Double sum = 0.0;
+		int i = 0;
+		
+		while(sum < selection){
+			sum += 1/(Math.abs(goalNum - population.get(i).getEndNum()));
+			i++;
+		}
+		
+		return population.get(i-1);
 	}
 	
 	/**
@@ -159,7 +180,7 @@ public class GeneticAlgorithmSearch implements Search {
 		int n = x.getPath().size();
 		
 		//Cutoff point randomly from 1 to n
-		int c = rand.nextInt(n);
+		int c = 2; //rand.nextInt(n);
 		
 		//Create the new path by taking from both X and y
 		ArrayList<String> aPathy = new ArrayList<String>();
@@ -167,8 +188,9 @@ public class GeneticAlgorithmSearch implements Search {
 			if(i < c){
 				aPathy.add(x.getPath().get(i));
 			}
-			else
+			else if(i < y.getPath().size()){
 				aPathy.add(y.getPath().get(i));
+			}
 		}
 		
 		//New endNum is right now the average between x and y
@@ -187,25 +209,25 @@ public class GeneticAlgorithmSearch implements Search {
 	public Solution mutate(Problem problem, Solution child){
 		//Set random object (java.util.random) to determine random probability requirement
 		Random rand = new Random();
-		int req = rand.nextInt(99);
+		int req = (int) Math.random()*99;
 		
 		//Select some random number
-		int x = rand.nextInt(99);
+		int x = (int) Math.random()*99;
 		//if (number selected adheres to probability requirement): mutate
 		if(x < req){
 			
 			//choose randomly what path to mutate
-			int pathNum = rand.nextInt(child.getPath().size() - 1);
+			int pathNum = (int) Math.random()*child.getPath().size();
 			
 			//choose randomly what operator to select
-			int opNum = rand.nextInt(problem.getOperators().size() - 1);
+			int opNum = (int) Math.random()*problem.getOperators().size();
 			
 			//generate new values
 			LinkedList<String> newPath = new LinkedList<String>();
 			
 			for(int i = 0; i < child.getPath().size(); i++){
 				if(i == pathNum){
-					newPath.add(i, child.getStartNum() + problem.getOperators().get(opNum));
+					newPath.add(i, problem.getOperators().get(opNum));
 				}
 				else{
 					newPath.add(i, child.getPath().get(i));
