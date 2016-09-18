@@ -81,7 +81,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
-					return generateGeneticSolutionInfo(solution);
+					return generateGeneticSolutionInfo(prob, solution);
 				}
 			}
 			
@@ -112,7 +112,7 @@ public class GeneticAlgorithmSearch implements Search {
 		}
 		
 		Solution bestSol = getBestSolution(population, prob, fit);
-		return generateGeneticSolutionInfo(bestSol);
+		return generateGeneticSolutionInfo(prob, bestSol);
 	}
 	
 	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
@@ -142,9 +142,9 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 
 
-	private GeneticSolutionInfo generateGeneticSolutionInfo(Solution solution) {
-		// TODO Auto-generated method stub
-		return null;
+	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution) {
+		GeneticSolutionInfo sol = new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, popSize, popSize);
+		return sol;
 	}
 
 
@@ -207,15 +207,13 @@ public class GeneticAlgorithmSearch implements Search {
 	 * @return
 	 */
 	public Solution mutate(Problem problem, Solution child){
-		//Set random object (java.util.random) to determine random probability requirement
-		Random rand = new Random();
-		int req = (int) Math.random()*99;
+		int req = (int) (Math.random()*99);
 		
 		//Select some random number
-		int x = (int) Math.random()*99;
+		int x = (int) (Math.random()*99);
 		//if (number selected adheres to probability requirement): mutate
 		if(x < req){
-			
+			System.out.println("Mutated" + req + " " + x);
 			//choose randomly what path to mutate
 			int pathNum = (int) Math.random()*child.getPath().size();
 			
@@ -238,6 +236,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//return mutated child
 			return newChild;
 		}
+		System.out.println("Not Mutated" + req + " " + x);
 		//return original child since mutation did not occur
 		return child;
 	}
