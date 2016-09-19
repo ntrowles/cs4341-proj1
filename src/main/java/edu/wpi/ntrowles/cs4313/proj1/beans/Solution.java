@@ -73,4 +73,52 @@ public class Solution {
 		this.path = path;
 		this.endNum = calcEndNum(startNum, path);
 	}
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		double leftOperand = startNum;
+		
+		//Print path to get to endNum
+		List<String> path = this.getPath();
+		for(int i=0; i<path.size(); i++){
+			builder.append("" + leftOperand + " "); //append left operand
+			
+			char operator = path.get(i).charAt(0);
+			builder.append(operator + " "); //append operator
+			
+			String rightOperandString = path.get(i).substring(1);
+			double rightOperand = Double.parseDouble(rightOperandString);
+			builder.append("" + rightOperand + " = "); //append right operator
+			
+			double solution = 0;
+			switch(operator){
+			case '+':
+				solution = (double)(leftOperand + rightOperand); 
+				break;
+				
+			case '-':
+				solution = (double)(leftOperand - rightOperand);
+				break;
+				
+			case '*':
+				solution = (double)(leftOperand * rightOperand);
+				break;
+				
+			case '/':
+				solution = (double)(leftOperand / rightOperand);
+				break;
+				
+			case '^':
+				solution = (double)(Math.pow(leftOperand, rightOperand));
+				break;
+				
+			default:
+				System.out.println("Unable to process operator type: " + operator + "; Please use +,-,*,/,^");
+				break;
+			}
+			builder.append("" + solution + "\n");
+			
+			leftOperand = solution;
+		}
+		return builder.toString();
+	}
 }

@@ -89,7 +89,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//create map
 			//Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
 			
-			for(int i=0; i<population.size(); i++){
+			for(int i=0; i < 1; i++){
 				//randomly select two children
 				
 				Solution x = randomSelection(prob, population);
