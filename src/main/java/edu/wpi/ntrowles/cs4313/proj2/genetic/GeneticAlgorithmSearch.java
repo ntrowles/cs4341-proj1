@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import java.util.Random;
+
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
@@ -15,7 +16,12 @@ import edu.wpi.ntrowles.cs4313.proj2.beans.GeneticSolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj2.utils.DifferenceFitness;
 import edu.wpi.ntrowles.cs4313.proj2.utils.Fitness;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class GeneticAlgorithmSearch implements Search {
+	static final Logger logger = LoggerFactory.getLogger(GeneticAlgorithmSearch.class);
+	
 	//private data
 	private int popSize;
 

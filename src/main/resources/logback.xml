@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- modified from code at 
+	https://wiki.base22.com/display/btg/How+to+setup+SLF4J+and+LOGBack+in+a+web+app+-+fast
+	http://stackoverflow.com/questions/20328646/org-slf4j-logger-logs-to-console-how-do-i-log-to-file
+	http://vazexqi.github.io/posts/2013/02/24/groovy-slf4j.html
+-->
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+		</layout>
+	</appender>
+	
+	<appender name="FILE" class="ch.qos.logback.RollingFileAppender"
+<!--	
+	<logger name="com.base22" level="DEBUG"/>
+-->	
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="
+	</root>
+</configuration>
