@@ -38,8 +38,12 @@ public class GeneticAlgorithmSearch implements Search {
 		this.setPopSize(popSize);
 	}
 	
-	//functions
-
+	/**
+	 * Triggers the genetic search
+	 * @param problem The problem state we are dealing with, used as basis to generate population.
+	 * @return The resulting solution as well as pertinent info such as time,
+	 * nodes expanded, and the kind of error encountered.
+	 */
 	public SolutionInfo search(Problem problem) {
 		logger.debug("Genetic Search started");
 		//create initial population
@@ -77,6 +81,14 @@ public class GeneticAlgorithmSearch implements Search {
 		return population;
 	}
 	
+	/**
+	 * The search particular to the genetic algorithm.
+	 * @param prob Initial problem state used to get max time.
+	 * @param fit A fitness object which is used to check correctness of solutions.
+	 * @param initPop An array list of the initial population.
+	 * @param initTimeMillis An initial established time based off the system.
+	 * @return All solution information pertinent to the genetic search.
+	 */
 	public GeneticSolutionInfo geneticAlgorithmSearch(Problem prob, Fitness fit, ArrayList<Solution> initPop, long initTimeMillis){
 		final double timeBuffer = 0.05;
 		
@@ -131,6 +143,13 @@ public class GeneticAlgorithmSearch implements Search {
 		return generateGeneticSolutionInfo(prob, bestSol, initTimeMillis, curGen, 1);
 	}
 	
+	/**
+	 * Helper function used to obtain the best solution of a population.
+	 * @param population Array list of solutions.
+	 * @param prob Initial problem state used in the fitness function.
+	 * @param fit Fitness object used to find the best fitting solution.
+	 * @return Solution closest to the goal as evaluated by the fitness function.
+	 */
 	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
 		Solution bestSol = population.get(0);
 		double bestSolFit = fit.evaluateFitness(population.get(0), prob);
@@ -159,12 +178,27 @@ public class GeneticAlgorithmSearch implements Search {
 */
 
 
+	/**
+	 * Helper function to generate the solution info particular for the genetic algorithm.
+	 * @param prob Initial problem state.
+	 * @param solution An organism.
+	 * @param initTimeMillis An established initial time based off the system.
+	 * @param numGen The actual number generated from the solution.
+	 * @param errNum An enumerated error.
+	 * @return A generated geneticSolutionInfo object.
+	 */
 	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution, long initTimeMillis, int numGen, int errNum) {
 		return new GeneticSolutionInfo(solution, prob.getGoalNum(), System.currentTimeMillis()/1000.0 - initTimeMillis/1000.0, popSize, numGen, errNum);
 	}
 
 
 
+	/**
+	 * Stochastically selects a solution based on probability from the fitness function.
+	 * @param prob Initial problem state.
+	 * @param population ArrayList of solutions.
+	 * @return One particular solution.
+	 */
 	public Solution randomSelection(Problem prob, ArrayList<Solution> population){
 		double goalNum = prob.getGoalNum();
 		Double totalSum = 0.0;
@@ -188,7 +222,6 @@ public class GeneticAlgorithmSearch implements Search {
 	/**
 	 * Generate a new solution based on cutoff point of
 	 * x and y solution paths as well as their endNums.
-	 * 
 	 * @param x Parent 1
 	 * @param y Parent 2
 	 * @return the new child solution
@@ -221,85 +254,117 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 	
 	/**
-	 * Replace, insert, delete
-	 * 
-	 * @param child
-	 * @return
+	 * Replace, insert, delete, as described in their repsective javadocs.
+	 * @param problem Intitial problem state.
+	 * @param child Solution to be mutated.
+	 * @return mutated solution (child)
 	 */
 	public Solution mutate(Problem problem, Solution child){
 		int type = (int) (Math.random()*4);
 		
 		//if (number selected adheres to probability requirement): mutate
-		if(type == 1){ //replace
-			//choose randomly what path to mutate
-			int pathNum = (int) Math.random()*child.getPath().size();
-			
-			//choose randomly what operator to select
-			int opNum = (int) Math.random()*problem.getOperators().size();
-			
-			//generate new values through replacement
-			LinkedList<String> newPath = new LinkedList<String>();
-			
-			for(int i = 0; i < child.getPath().size(); i++){
-				if(i == pathNum){
-					newPath.add(i, problem.getOperators().get(opNum));
-				}
-				else{
-					newPath.add(i, child.getPath().get(i));
-				}
-			}
-			Solution newChild = new Solution(child.getStartNum(), newPath);
-			
-			//return mutated child
-			return newChild;
+		if(type == 1){ 
+			return replace(problem, child); //Replace the problem child.
 		}
-		else if(type == 2){ //insert
-			//choose randomly what path to insert after
-			int pathNum = (int) Math.random()*child.getPath().size();
-			
-			//choose randomly what operator to select
-			int opNum = (int) Math.random()*problem.getOperators().size();
-			
-			//generate new values
-			LinkedList<String> newPath = new LinkedList<String>();
-			
-			for(int i = 0; i < child.getPath().size(); i++){
-				if(i == pathNum){
-					newPath.addLast(child.getPath().get(i));
-					newPath.addLast(problem.getOperators().get(opNum));
-				}
-				else{
-					newPath.addLast(child.getPath().get(i));
-				}
-			}
-			Solution newChild = new Solution(child.getStartNum(), newPath);
-			
-			//return mutated child
-			return newChild;
-			
+		
+		else if(type == 2){
+			return insert(problem, child); //Insert the problem child.
 		}
+		
 		else if(type == 3){ //delete
-			//choose randomly what path to delete
-			int pathNum = (int) Math.random()*child.getPath().size();
-			
-			//generate new values
-			LinkedList<String> newPath = new LinkedList<String>();
-			
-			for(int i = 0; i < child.getPath().size(); i++){
-				if(i != pathNum){
-					newPath.addLast(child.getPath().get(i));
-				}
-			}
-			Solution newChild = new Solution(child.getStartNum(), newPath);
-			
-			//return mutated child
-			return newChild;
-			
+			return delete(problem, child); //Delete the problem child.
 		}
 		else{
 			//return original child since mutation did not occur
 			return child;
 		}
+	}
+	
+	/**
+	 * Removes one particular node operator and switches it with another 
+	 * randomly selected operator.
+	 * @param problem Initial problem state, used for obtaining operators.
+	 * @param child Solution to be mutated.
+	 * @return A new solution with a replaced operator.
+	 */
+	private Solution replace (Problem problem, Solution child){
+		//choose randomly what path to mutate
+		int pathNum = (int) Math.random()*child.getPath().size();
+		
+		//choose randomly what operator to select
+		int opNum = (int) Math.random()*problem.getOperators().size();
+		
+		//generate new values through replacement
+		LinkedList<String> newPath = new LinkedList<String>();
+		
+		for(int i = 0; i < child.getPath().size(); i++){
+			if(i == pathNum){
+				newPath.add(i, problem.getOperators().get(opNum));
+			}
+			else{
+				newPath.add(i, child.getPath().get(i));
+			}
+		}
+		Solution newChild = new Solution(child.getStartNum(), newPath);
+		
+		//return mutated child
+		return newChild;
+	}
+	
+	/**
+	 * Insert one new node inside the path of a randomly selected solution
+	 * @param problem Initial problem state, used for obtaining operators.
+	 * @param child Solution to be mutated.
+	 * @return A new solution with a replaced operator.
+	 */
+	private Solution insert(Problem problem, Solution child){
+		//choose randomly what path to insert after
+		int pathNum = (int) Math.random()*child.getPath().size();
+		
+		//choose randomly what operator to select
+		int opNum = (int) Math.random()*problem.getOperators().size();
+		
+		//generate new values
+		LinkedList<String> newPath = new LinkedList<String>();
+		
+		for(int i = 0; i < child.getPath().size(); i++){
+			if(i == pathNum){
+				newPath.addLast(child.getPath().get(i));
+				newPath.addLast(problem.getOperators().get(opNum));
+			}
+			else{
+				newPath.addLast(child.getPath().get(i));
+			}
+		}
+		Solution newChild = new Solution(child.getStartNum(), newPath);
+		
+		//return mutated child
+		return newChild;
+	}
+	
+	/**
+	 * Removes one particular operator and switches it with another 
+	 * randomly selected operator.
+	 * @param problem Initial problem state, used for obtaining operators.
+	 * @param child Solution to be mutated.
+	 * @return A new solution with a replaced operator.
+	 */
+	private Solution delete (Problem problem, Solution child){
+		//choose randomly what path to delete
+		int pathNum = (int) Math.random()*child.getPath().size();
+		
+		//generate new values
+		LinkedList<String> newPath = new LinkedList<String>();
+		
+		for(int i = 0; i < child.getPath().size(); i++){
+			if(i != pathNum){
+				newPath.addLast(child.getPath().get(i));
+			}
+		}
+		Solution newChild = new Solution(child.getStartNum(), newPath);
+		
+		//return mutated child
+		return newChild;
 	}
 
 
