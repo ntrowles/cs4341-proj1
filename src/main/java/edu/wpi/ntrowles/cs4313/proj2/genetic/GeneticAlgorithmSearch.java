@@ -49,11 +49,6 @@ public class GeneticAlgorithmSearch implements Search {
 		logger.debug("Genetic Search started");
 		//create initial population
 		ArrayList<Solution> population = generateInitialPopulation(problem);
-		logger.debug("Initial population:");
-		for(int i=0; i<population.size(); i++){
-			Solution curSol = population.get(i);
-			logger.debug("Generation 0, Organism " + i + curSol.toString());
-		}
 				
 		//call genetic algorithm
 		Fitness fit = new DifferenceFitness();
@@ -92,6 +87,12 @@ public class GeneticAlgorithmSearch implements Search {
 		population.addAll(initPop);
 		
 		while(System.currentTimeMillis()/1000.0 < (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer)){
+			//log current generation
+			for(int i=0; i<population.size(); i++){
+				Solution curSol = population.get(i);
+				logger.debug("Generation " + curGen + ", Organism " + i + curSol.toString());
+			}
+			
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
