@@ -160,7 +160,7 @@ public class GeneticAlgorithmSearch implements Search {
 
 
 	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution, long initTimeMillis, int numGen, int errNum) {
-		return new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, numGen, errNum);
+		return new GeneticSolutionInfo(solution, prob.getGoalNum(), System.currentTimeMillis()/1000.0 - initTimeMillis/1000.0, popSize, numGen, errNum);
 	}
 
 
