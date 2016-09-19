@@ -134,12 +134,12 @@ public class GeneticAlgorithmSearch implements Search {
 
 
 	private Map<Solution, Double> generateProbabilities(Problem prob, Fitness fit, ArrayList<Solution> population) {
-		Map<Solution, Double> probMap = new HashMap();
+		Map<Solution, Double> probMap = new HashMap<Solution,Double>();
 		
 		double goalNum = prob.getGoalNum();
 		
 		for(int i = 0; i < population.size(); i++){
-			probMap.put(population.get(i), 1/(Math.abs(goalNum - population.get(i).getEndNum())));
+			probMap.put(population.get(i), 1/fit.evaluateFitness(population.get(i), prob));
 		}
 		
 		return probMap;
