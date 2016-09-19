@@ -21,6 +21,7 @@ public class GeneticAlgorithmSearch implements Search {
 	//private data
 	private int popSize;
 
+	//FIXME rand should not be global, or should at least get set when the ctor is called
 	//Random object 
 	Random rand = new Random();
 	
@@ -74,6 +75,9 @@ public class GeneticAlgorithmSearch implements Search {
 	public GeneticSolutionInfo geneticAlgorithmSearch(Problem prob, Fitness fit, ArrayList<Solution> initPop, long initTimeMillis){
 		final double timeBuffer = 0.05;
 		
+		//keep track of generation number
+		int curGen = 0;
+		
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		population.addAll(initPop);
 		
@@ -81,7 +85,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
-					return generateGeneticSolutionInfo(prob, solution);
+					return generateGeneticSolutionInfo(prob, solution, initTimeMillis, curGen, 0);
 				}
 			}
 			
@@ -107,12 +111,13 @@ public class GeneticAlgorithmSearch implements Search {
 				newPop.add(child);
 			}
 			
-			//assign new population to population
+			//assign new population to population, update curGen
 			population = newPop;
+			curGen++;
 		}
 		
 		Solution bestSol = getBestSolution(population, prob, fit);
-		return generateGeneticSolutionInfo(prob, bestSol);
+		return generateGeneticSolutionInfo(prob, bestSol, initTimeMillis, curGen, 1);
 	}
 	
 	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
@@ -142,9 +147,8 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 
 
-	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution) {
-		GeneticSolutionInfo sol = new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, popSize, popSize);
-		return sol;
+	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution, long initTimeMillis, int numGen, int errNum) {
+		return new GeneticSolutionInfo(solution, prob.getGoalNum(), System.currentTimeMillis()/1000.0 - initTimeMillis/1000.0, popSize, numGen, errNum);
 	}
 
 
