@@ -89,8 +89,7 @@ public class GeneticAlgorithmSearch implements Search {
 		
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		population.addAll(initPop);
-		double currentTime = System.currentTimeMillis()/1000.00;
-		while(currentTime < (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer)){
+		while(System.currentTimeMillis()/1000.00 < (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer)){
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
@@ -124,7 +123,6 @@ public class GeneticAlgorithmSearch implements Search {
 			population = newPop;
 			curGen++;
 		}
-		double timeDiff = (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer) - currentTime;
 		Solution bestSol = getBestSolution(population, prob, fit);
 
 		return generateGeneticSolutionInfo(prob, bestSol, initTimeMillis, curGen, 1);
@@ -175,7 +173,7 @@ public class GeneticAlgorithmSearch implements Search {
 	 * @return A generated geneticSolutionInfo object.
 	 */
 	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution, long initTimeMillis, int numGen, int errNum) {
-		return new GeneticSolutionInfo(solution, prob.getGoalNum(), System.currentTimeMillis()/1000.0 - initTimeMillis/1000.0, popSize, numGen, errNum);
+		return new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, numGen, errNum);
 	}
 
 
