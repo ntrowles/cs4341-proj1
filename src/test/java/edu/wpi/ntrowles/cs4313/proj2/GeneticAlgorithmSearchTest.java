@@ -10,4 +10,20 @@ public class GeneticAlgorithmSearchTest {
 		String[] args = {"src/test/resources/genetic_1"};
 		Main.main(args);
 	}
+	public void searchTest2(){
+		String[] args = {"src/test/resources/genetic_2"};
+		Main.main(args);
+	}
+	public void searchTest3(){
+		String[] args = {"src/test/resources/genetic_3"};
+		Main.main(args);
+	}
+	public void searchTest4(){
+		String[] args = {"src/test/resources/genetic_4"};
+		Main.main(args);
+	}
+	public void searchTest5(){
+		String[] args = {"src/test/resources/genetic_5"};
+		Main.main(args);
+	}
 }
