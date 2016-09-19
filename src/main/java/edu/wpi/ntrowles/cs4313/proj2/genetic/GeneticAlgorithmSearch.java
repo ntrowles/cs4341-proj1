@@ -43,6 +43,11 @@ public class GeneticAlgorithmSearch implements Search {
 		return geneticAlgorithmSearch(problem, fit, population, System.currentTimeMillis());
 	}
 	
+	/**
+	 * Randomly generates an initial population.
+	 * @param prob Problem state
+	 * @return An ArrayList of Solutions.
+	 */
 	public ArrayList<Solution> generateInitialPopulation(Problem prob){
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		//generate initial population
@@ -109,6 +114,12 @@ public class GeneticAlgorithmSearch implements Search {
 		return generateGeneticSolutionInfo(prob, bestSol);
 	}
 	
+	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution) {
+		double time = (double)System.currentTimeMillis()/1000.00  ;
+		GeneticSolutionInfo sol = new GeneticSolutionInfo(solution, prob.getGoalNum(), time, popSize, popSize, 0);
+		return sol;
+	}
+	
 	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
 		Solution bestSol = population.get(0);
 		double bestSolFit = fit.evaluateFitness(population.get(0), prob);
@@ -136,10 +147,7 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 
 
-	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution) {
-		GeneticSolutionInfo sol = new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, popSize, popSize);
-		return sol;
-	}
+	
 
 
 	public Solution randomSelection(Problem prob, ArrayList<Solution> population){
