@@ -46,8 +46,14 @@ public class GeneticAlgorithmSearch implements Search {
 	//functions
 
 	public SolutionInfo search(Problem problem) {
+		logger.debug("Genetic Search started");
 		//create initial population
 		ArrayList<Solution> population = generateInitialPopulation(problem);
+		logger.debug("Initial population:");
+		for(int i=0; i<population.size(); i++){
+			Solution curSol = population.get(i);
+			logger.debug("Generation 0, Organism " + i + curSol.toString());
+		}
 				
 		//call genetic algorithm
 		Fitness fit = new DifferenceFitness();

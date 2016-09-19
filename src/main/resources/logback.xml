@@ -12,12 +12,18 @@
 		</layout>
 	</appender>
 	
-	<appender name="FILE" class="ch.qos.logback.RollingFileAppender"
-<!--	
-	<logger name="com.base22" level="DEBUG"/>
--->	
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>genetic_search.log</file>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+		
+	<logger name="edu.wpi.ntrowles.cs4313.*" level="DEBUG">
+		<appender-ref ref="FILE"/>
+	</logger>	
+	
 	<root level="debug">
-		<appender-ref ref="STDOUT" />
-		<appender-ref ref="
+		<appender-ref ref="FILE" />
 	</root>
 </configuration>
