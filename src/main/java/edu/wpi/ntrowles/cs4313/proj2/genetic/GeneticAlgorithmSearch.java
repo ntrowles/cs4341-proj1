@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Random;
+
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
@@ -14,7 +16,12 @@ import edu.wpi.ntrowles.cs4313.proj2.beans.GeneticSolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj2.utils.DifferenceFitness;
 import edu.wpi.ntrowles.cs4313.proj2.utils.Fitness;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class GeneticAlgorithmSearch implements Search {
+	static final Logger logger = LoggerFactory.getLogger(GeneticAlgorithmSearch.class);
+	
 	//private data
 	private int popSize;
 	
@@ -38,6 +45,7 @@ public class GeneticAlgorithmSearch implements Search {
 	 * nodes expanded, and the kind of error encountered.
 	 */
 	public SolutionInfo search(Problem problem) {
+		logger.debug("Genetic Search started");
 		//create initial population
 		ArrayList<Solution> population = generateInitialPopulation(problem);
 				
@@ -89,7 +97,14 @@ public class GeneticAlgorithmSearch implements Search {
 		
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		population.addAll(initPop);
-		while(System.currentTimeMillis()/1000.00 < (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer)){
+		
+		while(System.currentTimeMillis()/1000.0 < (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer)){
+			//log current generation
+			for(int i=0; i<population.size(); i++){
+				Solution curSol = population.get(i);
+				logger.debug("Generation " + curGen + ", Organism " + i + curSol.toString());
+			}
+
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
@@ -103,7 +118,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//create map
 			//Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
 			
-			for(int i=0; i < 1; i++){
+			for(int i=0; i < popSize; i++){
 				//randomly select two children
 				
 				Solution x = randomSelection(prob, population);
@@ -173,7 +188,7 @@ public class GeneticAlgorithmSearch implements Search {
 	 * @return A generated geneticSolutionInfo object.
 	 */
 	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution, long initTimeMillis, int numGen, int errNum) {
-		return new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, numGen, errNum);
+		return new GeneticSolutionInfo(solution, prob.getGoalNum(), System.currentTimeMillis()/1000.0 - initTimeMillis/1000.0, popSize, numGen, errNum);
 	}
 
 
