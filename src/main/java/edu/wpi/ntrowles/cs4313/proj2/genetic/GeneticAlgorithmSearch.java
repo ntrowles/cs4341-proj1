@@ -52,7 +52,7 @@ public class GeneticAlgorithmSearch implements Search {
 	public ArrayList<Solution> generateInitialPopulation(Problem prob){
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		//generate initial population
-		for(int i = 0; i<popSize; i++){
+		for(int i = 0; i < popSize; i++){
 			//randomly generate path
 			//randomly generate size of path
 			int randPathSize = (int)(Math.random() * 10); //random path size [1,10]
@@ -96,15 +96,17 @@ public class GeneticAlgorithmSearch implements Search {
 				
 				Solution x = randomSelection(prob, population);
 				Solution y = randomSelection(prob, population);
+				System.out.println(x);
+				System.out.println(y);
 				
 				//breed child
-				Solution child = reproduce(x,y);
+				//Solution child = reproduce(x,y);
 				
 				//mutate child
-				child = mutate(prob, child);
+				//child = mutate(prob, child);
 				
 				//add child to new population
-				newPop.add(child);
+				//newPop.add(child);
 			}
 			
 			//assign new population to population
