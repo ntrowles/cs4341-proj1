@@ -213,7 +213,6 @@ public class GeneticAlgorithmSearch implements Search {
 		int x = (int) (Math.random()*99);
 		//if (number selected adheres to probability requirement): mutate
 		if(x < req){
-			System.out.println("Mutated" + req + " " + x);
 			//choose randomly what path to mutate
 			int pathNum = (int) Math.random()*child.getPath().size();
 			
@@ -236,7 +235,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//return mutated child
 			return newChild;
 		}
-		System.out.println("Not Mutated" + req + " " + x);
+
 		//return original child since mutation did not occur
 		return child;
 	}
