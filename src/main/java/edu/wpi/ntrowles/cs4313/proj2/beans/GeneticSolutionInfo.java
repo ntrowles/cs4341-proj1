@@ -28,7 +28,7 @@ public class GeneticSolutionInfo extends SolutionInfo {
 			double rightOperand = Double.parseDouble(rightOperandString);
 			builder.append("" + rightOperand + " = "); //append right operator
 			
-			double solution = 0;
+			double solution = 0.0;
 			switch(operator){
 			case '+':
 				solution = (leftOperand + rightOperand); 

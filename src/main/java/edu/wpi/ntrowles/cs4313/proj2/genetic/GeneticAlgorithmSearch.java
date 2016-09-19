@@ -14,7 +14,6 @@ import edu.wpi.ntrowles.cs4313.proj2.beans.GeneticSolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj2.utils.DifferenceFitness;
 import edu.wpi.ntrowles.cs4313.proj2.utils.Fitness;
 
-
 public class GeneticAlgorithmSearch implements Search {
 	//private data
 	private int popSize;
@@ -73,6 +72,9 @@ public class GeneticAlgorithmSearch implements Search {
 	public GeneticSolutionInfo geneticAlgorithmSearch(Problem prob, Fitness fit, ArrayList<Solution> initPop, long initTimeMillis){
 		final double timeBuffer = 0.05;
 		
+		//keep track of generation number
+		int curGen = 0;
+		
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		population.addAll(initPop);
 		double currentTime = System.currentTimeMillis()/1000.00;
@@ -80,7 +82,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
-					return generateGeneticSolutionInfo(prob, solution, currentTime);
+					return generateGeneticSolutionInfo(prob, solution, initTimeMillis, curGen, 0);
 				}
 			}
 			
@@ -88,9 +90,9 @@ public class GeneticAlgorithmSearch implements Search {
 			ArrayList<Solution> newPop = new ArrayList<Solution>();
 			
 			//create map
-			Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
+			//Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
 			
-			for(int i=0; i<population.size(); i++){
+			for(int i=0; i < 1; i++){
 				//randomly select two children
 				
 				Solution x = randomSelection(prob, population);
@@ -106,17 +108,14 @@ public class GeneticAlgorithmSearch implements Search {
 				newPop.add(child);
 			}
 			
-			//assign new population to population
+			//assign new population to population, update curGen
 			population = newPop;
+			curGen++;
 		}
 		double timeDiff = (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer) - currentTime;
 		Solution bestSol = getBestSolution(population, prob, fit);
-		return generateGeneticSolutionInfo(prob, bestSol, timeDiff);
-	}
-	
-	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution, double time) {
-		GeneticSolutionInfo sol = new GeneticSolutionInfo(solution, prob.getGoalNum(), time, popSize, popSize, 0);
-		return sol;
+
+		return generateGeneticSolutionInfo(prob, bestSol, initTimeMillis, curGen, 1);
 	}
 	
 	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
@@ -132,7 +131,7 @@ public class GeneticAlgorithmSearch implements Search {
 		return bestSol;
 	}
 
-
+/*
 	private Map<Solution, Double> generateProbabilities(Problem prob, Fitness fit, ArrayList<Solution> population) {
 		Map<Solution, Double> probMap = new HashMap<Solution,Double>();
 		
@@ -144,9 +143,13 @@ public class GeneticAlgorithmSearch implements Search {
 		
 		return probMap;
 	}
+*/
 
 
-	
+	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution, long initTimeMillis, int numGen, int errNum) {
+		return new GeneticSolutionInfo(solution, prob.getGoalNum(), System.currentTimeMillis()/1000.0 - initTimeMillis/1000.0, popSize, numGen, errNum);
+	}
+
 
 
 	public Solution randomSelection(Problem prob, ArrayList<Solution> population){
@@ -172,6 +175,7 @@ public class GeneticAlgorithmSearch implements Search {
 	/**
 	 * Generate a new solution based on cutoff point of
 	 * x and y solution paths as well as their endNums.
+	 * 
 	 * @param x Parent 1
 	 * @param y Parent 2
 	 * @return the new child solution
@@ -180,8 +184,10 @@ public class GeneticAlgorithmSearch implements Search {
 		//Path of the solution so far
 		int n = x.getPath().size();
 		
+
 		//Cutoff point randomly from index 0 to index n - 1
 		int c = (int)(Math.random()*n);
+
 		
 		//Create the new path by taking from both X and y
 		ArrayList<String> aPathy = new ArrayList<String>();
@@ -202,25 +208,23 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 	
 	/**
-	 * 
+	 * Replace, insert, delete
 	 * 
 	 * @param child
 	 * @return
 	 */
 	public Solution mutate(Problem problem, Solution child){
-		int req = (int) (Math.random()*99);
+		int type = (int) (Math.random()*4);
 		
-		//Select some random number
-		int x = (int) (Math.random()*99);
 		//if (number selected adheres to probability requirement): mutate
-		if(x < req){
+		if(type == 1){ //replace
 			//choose randomly what path to mutate
 			int pathNum = (int) Math.random()*child.getPath().size();
 			
 			//choose randomly what operator to select
 			int opNum = (int) Math.random()*problem.getOperators().size();
 			
-			//generate new values
+			//generate new values through replacement
 			LinkedList<String> newPath = new LinkedList<String>();
 			
 			for(int i = 0; i < child.getPath().size(); i++){
@@ -236,9 +240,53 @@ public class GeneticAlgorithmSearch implements Search {
 			//return mutated child
 			return newChild;
 		}
-
-		//return original child since mutation did not occur
-		return child;
+		else if(type == 2){ //insert
+			//choose randomly what path to insert after
+			int pathNum = (int) Math.random()*child.getPath().size();
+			
+			//choose randomly what operator to select
+			int opNum = (int) Math.random()*problem.getOperators().size();
+			
+			//generate new values
+			LinkedList<String> newPath = new LinkedList<String>();
+			
+			for(int i = 0; i < child.getPath().size(); i++){
+				if(i == pathNum){
+					newPath.addLast(child.getPath().get(i));
+					newPath.addLast(problem.getOperators().get(opNum));
+				}
+				else{
+					newPath.addLast(child.getPath().get(i));
+				}
+			}
+			Solution newChild = new Solution(child.getStartNum(), newPath);
+			
+			//return mutated child
+			return newChild;
+			
+		}
+		else if(type == 3){ //delete
+			//choose randomly what path to delete
+			int pathNum = (int) Math.random()*child.getPath().size();
+			
+			//generate new values
+			LinkedList<String> newPath = new LinkedList<String>();
+			
+			for(int i = 0; i < child.getPath().size(); i++){
+				if(i != pathNum){
+					newPath.addLast(child.getPath().get(i));
+				}
+			}
+			Solution newChild = new Solution(child.getStartNum(), newPath);
+			
+			//return mutated child
+			return newChild;
+			
+		}
+		else{
+			//return original child since mutation did not occur
+			return child;
+		}
 	}
 
 
