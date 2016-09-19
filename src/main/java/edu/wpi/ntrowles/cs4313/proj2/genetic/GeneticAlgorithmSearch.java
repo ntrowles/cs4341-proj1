@@ -221,6 +221,7 @@ public class GeneticAlgorithmSearch implements Search {
 
 		
 		//Create the new path by taking from both X and y
+		//unless y is shorter than x's cutoff point
 		ArrayList<String> aPathy = new ArrayList<String>();
 		for(int i = 0; i < n; i++){
 			if(i < c){
