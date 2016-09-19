@@ -38,8 +38,11 @@ public class GeneticAlgorithmSearch implements Search {
 		this.setPopSize(popSize);
 	}
 	
-	//functions
-
+	/**
+	 * SolutionInfo constructor.
+	 * @param problem The initial problem state to be searched through. In this case it is a population
+	 * @return A genetic alorithm search of the population
+	 */
 	public SolutionInfo search(Problem problem) {
 		//create initial population
 		ArrayList<Solution> population = generateInitialPopulation(problem);
@@ -49,6 +52,11 @@ public class GeneticAlgorithmSearch implements Search {
 		return geneticAlgorithmSearch(problem, fit, population, System.currentTimeMillis());
 	}
 	
+	/**
+	 * Generates an initial ArrayList of solutions in the form of a population.
+	 * @param prob basis to generate the initial population
+	 * @return the population
+	 */
 	public ArrayList<Solution> generateInitialPopulation(Problem prob){
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		//generate initial population
@@ -58,7 +66,7 @@ public class GeneticAlgorithmSearch implements Search {
 			int randPathSize = (int)(Math.random() * 10); //random path size [1,10]
 			List<String> path = new ArrayList<String>(randPathSize);
 			//randomly generate each operator in path
-			for(int j=0; j<randPathSize; j++){
+			for(int j=0; j<popSize; j++){
 				List<String> operators = prob.getOperators();
 				int randOpIndex = (int)(Math.random()*operators.size());
 				path.add(operators.get(randOpIndex));
@@ -71,6 +79,14 @@ public class GeneticAlgorithmSearch implements Search {
 		return population;
 	}
 	
+	/**
+	 * Return the solution info specific to the genetic algorithm search.
+	 * @param prob Used to transfer problem state to generic solution info.
+	 * @param fit the fitness function, used for culling and elitism.
+	 * @param initPop Starting population.
+	 * @param initTimeMillis Elapsed time in milliseconds
+	 * @return Solution info of the genetic search.
+	 */
 	public GeneticSolutionInfo geneticAlgorithmSearch(Problem prob, Fitness fit, ArrayList<Solution> initPop, long initTimeMillis){
 		final double timeBuffer = 0.05;
 		
@@ -81,7 +97,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
-					return generateGeneticSolutionInfo(prob, solution);
+					return generateGeneticSolutionInfo(solution);
 				}
 			}
 			
@@ -89,15 +105,17 @@ public class GeneticAlgorithmSearch implements Search {
 			ArrayList<Solution> newPop = new ArrayList<Solution>();
 			
 			//create map
-			Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
+			Map<ArrayList<Solution>, Double> probMap = generateProbabilities(prob, fit, population);
 			
 			for(int i=0; i<population.size(); i++){
 				//randomly select two children
-				
 				Solution x = randomSelection(prob, population);
 				Solution y = randomSelection(prob, population);
 				System.out.println(x);
 				System.out.println(y);
+
+				Solution x = randomSelection(probMap, population);
+				Solution y = randomSelection(probMap, population);
 				
 				//breed child
 				//Solution child = reproduce(x,y);
@@ -114,9 +132,16 @@ public class GeneticAlgorithmSearch implements Search {
 		}
 		
 		Solution bestSol = getBestSolution(population, prob, fit);
-		return generateGeneticSolutionInfo(prob, bestSol);
+		return generateGeneticSolutionInfo(bestSol);
 	}
 	
+	/**
+	 * Elitism function.
+	 * @param population The current population in question.
+	 * @param prob Problem state
+	 * @param fit Used for fitness function within a population.
+	 * @return The best solution.  Those other solutions, they don't know what they are talking about.
+	 */
 	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
 		Solution bestSol = population.get(0);
 		double bestSolFit = fit.evaluateFitness(population.get(0), prob);
@@ -131,43 +156,22 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 
 
-	private Map<Solution, Double> generateProbabilities(Problem prob, Fitness fit, ArrayList<Solution> population) {
-		Map<Solution, Double> probMap = new HashMap();
-		
-		double goalNum = prob.getGoalNum();
-		
-		for(int i = 0; i < population.size(); i++){
-			probMap.put(population.get(i), 1/(Math.abs(goalNum - population.get(i).getEndNum())));
-		}
-		
-		return probMap;
+	private Map<ArrayList<Solution>, Double> generateProbabilities(Problem prob, Fitness fit,
+			ArrayList<Solution> population) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
-	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution) {
-		GeneticSolutionInfo sol = new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, popSize, popSize);
-		return sol;
+	private GeneticSolutionInfo generateGeneticSolutionInfo(Solution solution) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
-	public Solution randomSelection(Problem prob, ArrayList<Solution> population){
-		double goalNum = prob.getGoalNum();
-		Double totalSum = 0.0;
-		
-		for(int i = 0; i < population.size(); i++){
-			totalSum += 1/(Math.abs(goalNum - population.get(i).getEndNum()));
-		}
-
-		Double selection = rand.nextDouble()*totalSum;
-		Double sum = 0.0;
-		int i = 0;
-		
-		while(sum < selection){
-			sum += 1/(Math.abs(goalNum - population.get(i).getEndNum()));
-			i++;
-		}
-		
-		return population.get(i-1);
+	public Solution randomSelection(Map<ArrayList<Solution>, Double> probMap, ArrayList<Solution> population){
+		//TODO finish
+		return null;
 	}
 	
 	/**
@@ -180,9 +184,9 @@ public class GeneticAlgorithmSearch implements Search {
 	public Solution reproduce(Solution x, Solution y){
 		//Path of the solution so far
 		int n = x.getPath().size();
-		
+		//System.out.
 		//Cutoff point randomly from 1 to n
-		int c = 2; //rand.nextInt(n);
+		int c = rand.nextInt(n);
 		
 		//Create the new path by taking from both X and y
 		ArrayList<String> aPathy = new ArrayList<String>();
@@ -190,9 +194,8 @@ public class GeneticAlgorithmSearch implements Search {
 			if(i < c){
 				aPathy.add(x.getPath().get(i));
 			}
-			else if(i < y.getPath().size()){
+			else
 				aPathy.add(y.getPath().get(i));
-			}
 		}
 		
 		//New endNum is right now the average between x and y
@@ -209,24 +212,27 @@ public class GeneticAlgorithmSearch implements Search {
 	 * @return
 	 */
 	public Solution mutate(Problem problem, Solution child){
-		int req = (int) (Math.random()*99);
+		//Set random object (java.util.random) to determine random probability requirement
+		Random rand = new Random();
+		int req = rand.nextInt(99);
 		
 		//Select some random number
-		int x = (int) (Math.random()*99);
+		int x = rand.nextInt(99);
 		//if (number selected adheres to probability requirement): mutate
 		if(x < req){
+			
 			//choose randomly what path to mutate
-			int pathNum = (int) Math.random()*child.getPath().size();
+			int pathNum = rand.nextInt(child.getPath().size() - 1);
 			
 			//choose randomly what operator to select
-			int opNum = (int) Math.random()*problem.getOperators().size();
+			int opNum = rand.nextInt(problem.getOperators().size() - 1);
 			
 			//generate new values
 			LinkedList<String> newPath = new LinkedList<String>();
 			
 			for(int i = 0; i < child.getPath().size(); i++){
 				if(i == pathNum){
-					newPath.add(i, problem.getOperators().get(opNum));
+					newPath.add(i, child.getStartNum() + problem.getOperators().get(opNum));
 				}
 				else{
 					newPath.add(i, child.getPath().get(i));
@@ -237,7 +243,6 @@ public class GeneticAlgorithmSearch implements Search {
 			//return mutated child
 			return newChild;
 		}
-
 		//return original child since mutation did not occur
 		return child;
 	}
