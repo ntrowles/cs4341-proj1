@@ -15,8 +15,6 @@ import edu.wpi.ntrowles.cs4313.proj2.beans.GeneticSolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj2.utils.DifferenceFitness;
 import edu.wpi.ntrowles.cs4313.proj2.utils.Fitness;
 
-import java.util.Random;
-
 public class GeneticAlgorithmSearch implements Search {
 	//private data
 	private int popSize;
@@ -89,7 +87,7 @@ public class GeneticAlgorithmSearch implements Search {
 			ArrayList<Solution> newPop = new ArrayList<Solution>();
 			
 			//create map
-			Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
+			//Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
 			
 			for(int i=0; i<population.size(); i++){
 				//randomly select two children
@@ -128,7 +126,7 @@ public class GeneticAlgorithmSearch implements Search {
 		return bestSol;
 	}
 
-
+/*
 	private Map<Solution, Double> generateProbabilities(Problem prob, Fitness fit, ArrayList<Solution> population) {
 		Map<Solution, Double> probMap = new HashMap();
 		
@@ -140,7 +138,7 @@ public class GeneticAlgorithmSearch implements Search {
 		
 		return probMap;
 	}
-
+*/
 
 	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution) {
 		GeneticSolutionInfo sol = new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, popSize, popSize);
@@ -171,6 +169,7 @@ public class GeneticAlgorithmSearch implements Search {
 	/**
 	 * Generate a new solution based on cutoff point of
 	 * x and y solution paths as well as their endNums.
+	 * 
 	 * @param x Parent 1
 	 * @param y Parent 2
 	 * @return the new child solution
@@ -180,7 +179,7 @@ public class GeneticAlgorithmSearch implements Search {
 		int n = x.getPath().size();
 		
 		//Cutoff point randomly from 1 to n
-		int c = 2; //rand.nextInt(n);
+		int c = (int) (Math.random()*n);
 		
 		//Create the new path by taking from both X and y
 		ArrayList<String> aPathy = new ArrayList<String>();
@@ -201,25 +200,23 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 	
 	/**
-	 * 
+	 * Replace, insert, delete
 	 * 
 	 * @param child
 	 * @return
 	 */
 	public Solution mutate(Problem problem, Solution child){
-		int req = (int) (Math.random()*99);
+		int type = (int) (Math.random()*4);
 		
-		//Select some random number
-		int x = (int) (Math.random()*99);
 		//if (number selected adheres to probability requirement): mutate
-		if(x < req){
+		if(type == 1){ //replace
 			//choose randomly what path to mutate
 			int pathNum = (int) Math.random()*child.getPath().size();
 			
 			//choose randomly what operator to select
 			int opNum = (int) Math.random()*problem.getOperators().size();
 			
-			//generate new values
+			//generate new values through replacement
 			LinkedList<String> newPath = new LinkedList<String>();
 			
 			for(int i = 0; i < child.getPath().size(); i++){
@@ -235,9 +232,53 @@ public class GeneticAlgorithmSearch implements Search {
 			//return mutated child
 			return newChild;
 		}
-
-		//return original child since mutation did not occur
-		return child;
+		else if(type == 2){ //insert
+			//choose randomly what path to insert after
+			int pathNum = (int) Math.random()*child.getPath().size();
+			
+			//choose randomly what operator to select
+			int opNum = (int) Math.random()*problem.getOperators().size();
+			
+			//generate new values
+			LinkedList<String> newPath = new LinkedList<String>();
+			
+			for(int i = 0; i < child.getPath().size(); i++){
+				if(i == pathNum){
+					newPath.addLast(child.getPath().get(i));
+					newPath.addLast(problem.getOperators().get(opNum));
+				}
+				else{
+					newPath.addLast(child.getPath().get(i));
+				}
+			}
+			Solution newChild = new Solution(child.getStartNum(), newPath);
+			
+			//return mutated child
+			return newChild;
+			
+		}
+		else if(type == 3){ //delete
+			//choose randomly what path to delete
+			int pathNum = (int) Math.random()*child.getPath().size();
+			
+			//generate new values
+			LinkedList<String> newPath = new LinkedList<String>();
+			
+			for(int i = 0; i < child.getPath().size(); i++){
+				if(i != pathNum){
+					newPath.addLast(child.getPath().get(i));
+				}
+			}
+			Solution newChild = new Solution(child.getStartNum(), newPath);
+			
+			//return mutated child
+			return newChild;
+			
+		}
+		else{
+			//return original child since mutation did not occur
+			return child;
+		}
 	}
 
 
