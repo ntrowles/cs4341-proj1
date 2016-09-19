@@ -24,12 +24,7 @@ public class GeneticAlgorithmSearch implements Search {
 	
 	//private data
 	private int popSize;
-
-	//FIXME rand should not be global, or should at least get set when the ctor is called
-	//Random object 
-	Random rand = new Random();
 	
-
 	//getters and setters
 	public int getPopSize() {
 		return popSize;
@@ -55,13 +50,18 @@ public class GeneticAlgorithmSearch implements Search {
 		return geneticAlgorithmSearch(problem, fit, population, System.currentTimeMillis());
 	}
 	
+	/**
+	 * Randomly generates an initial population.
+	 * @param prob Problem state
+	 * @return An ArrayList of Solutions.
+	 */
 	public ArrayList<Solution> generateInitialPopulation(Problem prob){
 		ArrayList<Solution> population = new ArrayList<Solution>();
 		//generate initial population
 		for(int i = 0; i<popSize; i++){
 			//randomly generate path
 			//randomly generate size of path
-			int randPathSize = (int)(Math.random() * 10); //random path size [1,10]
+			int randPathSize = (int)(Math.random() * 10); //random path size [index 0, index 9]
 			List<String> path = new ArrayList<String>(randPathSize);
 			//randomly generate each operator in path
 			for(int j=0; j<randPathSize; j++){
@@ -92,7 +92,7 @@ public class GeneticAlgorithmSearch implements Search {
 				Solution curSol = population.get(i);
 				logger.debug("Generation " + curGen + ", Organism " + i + curSol.toString());
 			}
-			
+
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
@@ -126,8 +126,8 @@ public class GeneticAlgorithmSearch implements Search {
 			population = newPop;
 			curGen++;
 		}
-		
 		Solution bestSol = getBestSolution(population, prob, fit);
+
 		return generateGeneticSolutionInfo(prob, bestSol, initTimeMillis, curGen, 1);
 	}
 	
@@ -146,21 +146,23 @@ public class GeneticAlgorithmSearch implements Search {
 
 /*
 	private Map<Solution, Double> generateProbabilities(Problem prob, Fitness fit, ArrayList<Solution> population) {
-		Map<Solution, Double> probMap = new HashMap();
+		Map<Solution, Double> probMap = new HashMap<Solution,Double>();
 		
 		double goalNum = prob.getGoalNum();
 		
 		for(int i = 0; i < population.size(); i++){
-			probMap.put(population.get(i), 1/(Math.abs(goalNum - population.get(i).getEndNum())));
+			probMap.put(population.get(i), 1/fit.evaluateFitness(population.get(i), prob));
 		}
 		
 		return probMap;
 	}
 */
 
+
 	private GeneticSolutionInfo generateGeneticSolutionInfo(Problem prob, Solution solution, long initTimeMillis, int numGen, int errNum) {
-		return new GeneticSolutionInfo(solution, prob.getGoalNum(), System.currentTimeMillis()/1000.0 - initTimeMillis/1000.0, popSize, numGen, errNum);
+		return new GeneticSolutionInfo(solution, prob.getGoalNum(), 9001, popSize, numGen, errNum);
 	}
+
 
 
 	public Solution randomSelection(Problem prob, ArrayList<Solution> population){
@@ -171,7 +173,7 @@ public class GeneticAlgorithmSearch implements Search {
 			totalSum += 1/(Math.abs(goalNum - population.get(i).getEndNum()));
 		}
 
-		Double selection = rand.nextDouble()*totalSum;
+		Double selection = Math.random()*totalSum;
 		Double sum = 0.0;
 		int i = 0;
 		
@@ -195,8 +197,10 @@ public class GeneticAlgorithmSearch implements Search {
 		//Path of the solution so far
 		int n = x.getPath().size();
 		
-		//Cutoff point randomly from 1 to n
-		int c = (int) (Math.random()*n);
+
+		//Cutoff point randomly from index 0 to index n - 1
+		int c = (int)(Math.random()*n);
+
 		
 		//Create the new path by taking from both X and y
 		ArrayList<String> aPathy = new ArrayList<String>();
