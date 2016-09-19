@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import java.util.Random;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Problem;
 import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
@@ -15,16 +14,11 @@ import edu.wpi.ntrowles.cs4313.proj2.beans.GeneticSolutionInfo;
 import edu.wpi.ntrowles.cs4313.proj2.utils.DifferenceFitness;
 import edu.wpi.ntrowles.cs4313.proj2.utils.Fitness;
 
-import java.util.Random;
 
 public class GeneticAlgorithmSearch implements Search {
 	//private data
 	private int popSize;
-
-	//Random object 
-	Random rand = new Random();
 	
-
 	//getters and setters
 	public int getPopSize() {
 		return popSize;
@@ -55,7 +49,7 @@ public class GeneticAlgorithmSearch implements Search {
 		for(int i = 0; i<popSize; i++){
 			//randomly generate path
 			//randomly generate size of path
-			int randPathSize = (int)(Math.random() * 10); //random path size [1,10]
+			int randPathSize = (int)(Math.random() * 10); //random path size [index 0, index 9]
 			List<String> path = new ArrayList<String>(randPathSize);
 			//randomly generate each operator in path
 			for(int j=0; j<randPathSize; j++){
@@ -156,7 +150,7 @@ public class GeneticAlgorithmSearch implements Search {
 			totalSum += 1/(Math.abs(goalNum - population.get(i).getEndNum()));
 		}
 
-		Double selection = rand.nextDouble()*totalSum;
+		Double selection = Math.random()*totalSum;
 		Double sum = 0.0;
 		int i = 0;
 		
@@ -179,8 +173,8 @@ public class GeneticAlgorithmSearch implements Search {
 		//Path of the solution so far
 		int n = x.getPath().size();
 		
-		//Cutoff point randomly from 1 to n
-		int c = 2; //rand.nextInt(n);
+		//Cutoff point randomly from index 0 to index n - 1
+		int c = (int)(Math.random()*n);
 		
 		//Create the new path by taking from both X and y
 		ArrayList<String> aPathy = new ArrayList<String>();
