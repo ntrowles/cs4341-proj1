@@ -128,7 +128,7 @@ public class GeneticAlgorithmSearch implements Search {
 				
 				//breed child
 				Solution child = reproduce(x,y);
-				logger.debug("Child: " + child.toString());
+				logger.debug("Child: " + child.printString());
 				
 				//mutate child
 				child = mutate(prob, child);
