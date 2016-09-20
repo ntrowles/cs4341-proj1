@@ -169,8 +169,9 @@ public class GeneticAlgorithmSearch implements Search {
 		while(index < times.length){
 			if(System.currentTimeMillis()/1000.00 - start > times[index]){
 				index++;
+				//bestSoln = new Solution(new ArrayList<String>() , Double.MAX_VALUE);
 			}
-			else if (fit.evaluateFitness(this.getBestSolution(population, prob, fit), prob) < fit.evaluateFitness(bestSoln, prob)){
+			else if (fit.evaluateFitness(this.getBestSolution(population, prob, fit), prob) <= fit.evaluateFitness(bestSoln, prob)){
 				bestSoln = this.getBestSolution(population, prob, fit);
 				theBest.put(times[index], bestSoln);
 			}

@@ -34,8 +34,10 @@ public class ExperimentsTest {
 		for(int i=0; i<10; i++){
 			Map<Double, Solution> timedSol = searcher.geneticAlgorithmSearch(problem, new DifferenceFitness(), times);
 			for(int j=0; j<times.length; j++){
-				summedResults[j] += Math.abs(timedSol.get(times[j]).getEndNum() - problem.getGoalNum());
+				System.out.println(timedSol.get(times[j]).printString());
+				summedResults[j] += Math.abs(timedSol.get(new Double(times[j])).getEndNum() - problem.getGoalNum());
 			}
+			System.out.println("suite ran");
 		}
 		
 		Map<Double, Double> graph = new HashMap<Double, Double>();
