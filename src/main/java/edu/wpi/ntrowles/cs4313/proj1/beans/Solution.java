@@ -122,4 +122,15 @@ public class Solution {
 		}
 		return builder.toString();
 	}
+	
+	public String printString(){
+		StringBuilder b = new StringBuilder();
+		b.append(startNum);
+		b.append(", ");
+		b.append(path);
+		b.append(", ");
+		b.append(endNum);
+		
+		return b.toString();
+	}
 }

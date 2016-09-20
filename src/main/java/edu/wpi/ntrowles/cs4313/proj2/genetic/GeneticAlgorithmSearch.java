@@ -102,7 +102,7 @@ public class GeneticAlgorithmSearch implements Search {
 			//log current generation
 			for(int i=0; i<population.size(); i++){
 				Solution curSol = population.get(i);
-				logger.debug("Generation " + curGen + ", Organism " + i + curSol.toString());
+				logger.debug("Generation " + curGen + ", Organism " + i + curSol.printString());
 			}
 
 			//check if any solution is correct
@@ -123,12 +123,12 @@ public class GeneticAlgorithmSearch implements Search {
 				logger.debug("Selecting parents for reproduction");
 				Solution x = randomSelection(prob, population);
 				Solution y = randomSelection(prob, population);
-				logger.debug("Parent 1: \n" + x.toString());
-				logger.debug("Parent 2: \n" + y.toString());
+				logger.debug("Parent 1: " + x.printString());
+				logger.debug("Parent 2: " + y.printString());
 				
 				//breed child
 				Solution child = reproduce(x,y);
-				logger.debug("Child: \n" + child.toString());
+				logger.debug("Child: " + child.toString());
 				
 				//mutate child
 				child = mutate(prob, child);
@@ -214,10 +214,10 @@ public class GeneticAlgorithmSearch implements Search {
 		Double sum = 0.0;
 		int i = 0;
 		
-		while(sum < selection){
+		do{
 			sum += 1/(Math.abs(goalNum - population.get(i).getEndNum()));
 			i++;
-		}
+		}while(sum < selection);
 		
 		return population.get(i-1);
 	}
@@ -268,19 +268,19 @@ public class GeneticAlgorithmSearch implements Search {
 		//if (number selected adheres to probability requirement): mutate
 		if(type == 1){ 
 			Solution sol = replace(problem, child); //Replace the problem child.
-			logger.debug("Child mutated, replacement occured. New child: \n" + sol.toString());
+			logger.debug("Child mutated, replacement occured. New child: \n" + sol.printString());
 			return sol;
 		}
 		
 		else if(type == 2){
 			Solution sol = insert(problem, child); //Insert the problem child.
-			logger.debug("Child mutated, insertion occured. New child: \n" + sol.toString());
+			logger.debug("Child mutated, insertion occured. New child: \n" + sol.printString());
 			return sol;
 		}
 		
 		else if(type == 3){ //delete
 			Solution sol = delete(problem, child); //Delete the problem child.
-			logger.debug("Child mutated, deletion occured. New child: \n" + sol.toString());
+			logger.debug("Child mutated, deletion occured. New child: \n" + sol.printString());
 			return sol;
 		}
 		else{
