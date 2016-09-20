@@ -105,7 +105,7 @@ public class GeneticAlgorithmSearch implements Search {
 			
 			//culling-elitism
 			double cullThresh = 0.1;
-			double eliteThresh = 0.5;
+			double eliteThresh = 0.25;
 			int cullMax = popSize/5;
 			int eliteMax = popSize/5;
 			int numCulled = 0, numElite = 0;
@@ -225,7 +225,7 @@ public class GeneticAlgorithmSearch implements Search {
 			
 			//culling-elitism
 			double cullThresh = 0.1;
-			double eliteThresh = 0.5;
+			double eliteThresh = 0.25;
 			int cullMax = popSize/5;
 			int eliteMax = popSize/5;
 			int numCulled = 0, numElite = 0;
