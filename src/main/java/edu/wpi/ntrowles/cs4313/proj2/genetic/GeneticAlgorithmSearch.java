@@ -197,7 +197,7 @@ public class GeneticAlgorithmSearch implements Search {
 
 
 	/**
-	 * Stochastically selects a solution based on probability from the fitness function.
+	 * Stochastically selects a solution based on summed probabilities.
 	 * @param prob Initial problem state.
 	 * @param population ArrayList of solutions.
 	 * @return One particular solution.
