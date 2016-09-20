@@ -104,13 +104,14 @@ public class GeneticAlgorithmSearch implements Search {
 			ArrayList<Solution> newPop = new ArrayList<Solution>();
 			
 			//culling-elitism
-			double threshold = 0.1;
+			double cullThresh = 0.1;
+			double eliteThresh = 0.5;
 			for(int i = 0; i < population.size(); i++){
-				if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) <= threshold){
+				if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) <= cullThresh){
 					population.remove(i);
 					i--;
 				}
-				else{
+				else if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) >= eliteThresh){
 					newPop.add(population.get(i));
 				}
 			}
