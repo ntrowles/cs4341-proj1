@@ -146,6 +146,78 @@ public class GeneticAlgorithmSearch implements Search {
 		return generateGeneticSolutionInfo(prob, bestSol, initTimeMillis, curGen, 1);
 	}
 	
+	public Map<Double, Solution> geneticAlgorithmSearch(Problem prob, Fitness fit, double[] times){
+		//Start time
+		double start = System.currentTimeMillis()/1000.00;
+		
+		//HashMap for best solutions at each time
+		Map<Double, Solution> theBest = new HashMap<Double, Solution>();
+		
+		//Generated population
+		ArrayList<Solution> population = this.generateInitialPopulation(prob);
+		
+		//keep track of best solution so far
+		Solution bestSoln = new Solution(new ArrayList<String>() , Double.MAX_VALUE);
+		
+		//keep track of generation number
+		int curGen = 0;
+		
+		//Index refers to time intervals, used like a step function
+		int index = 0;
+		
+		
+		while(index < times.length){
+			if(System.currentTimeMillis()/1000.00 - start > times[index]){
+				index++;
+			}
+			else if (fit.evaluateFitness(this.getBestSolution(population, prob, fit), prob) < fit.evaluateFitness(bestSoln, prob)){
+				bestSoln = this.getBestSolution(population, prob, fit);
+				theBest.put(times[index], bestSoln);
+			}
+			//log current generation
+			for(int i=0; i<population.size(); i++){
+				Solution curSol = population.get(i);
+				logger.debug("Generation " + curGen + ", Organism " + i + curSol.printString());
+			}
+
+			//check if any solution is correct
+			for(Solution solution : population){
+				if(fit.evaluateFitness(solution, prob) == 0){
+					return theBest;
+				}
+			}
+			
+			//create new population
+			ArrayList<Solution> newPop = new ArrayList<Solution>();
+			
+			//create map
+			//Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
+			
+			for(int i=0; i < popSize; i++){
+				//randomly select two children
+				logger.debug("Selecting parents for reproduction");
+				Solution x = randomSelection(prob, population);
+				Solution y = randomSelection(prob, population);
+				logger.debug("Parent 1: " + x.printString());
+				logger.debug("Parent 2: " + y.printString());
+				
+				//breed child
+				Solution child = reproduce(x,y);
+				logger.debug("Child: " + child.printString());
+				
+				//mutate child
+				child = mutate(prob, child);
+				
+				//add child to new population
+				newPop.add(child);
+			}
+			
+			//assign new population to population, update curGen
+			population = newPop;
+			curGen++;
+		}
+		return theBest;
+	}
 	/**
 	 * Helper function used to obtain the best solution of a population.
 	 * @param population Array list of solutions.
@@ -263,7 +335,7 @@ public class GeneticAlgorithmSearch implements Search {
 	 * @return mutated solution (child)
 	 */
 	public Solution mutate(Problem problem, Solution child){
-		int type = (int) (Math.random()*4);
+		int type = (int) (Math.random()*6);
 		
 		//if (number selected adheres to probability requirement): mutate
 		if(type == 1){ 
