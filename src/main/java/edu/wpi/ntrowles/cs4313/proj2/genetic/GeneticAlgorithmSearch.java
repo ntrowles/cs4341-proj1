@@ -335,7 +335,7 @@ public class GeneticAlgorithmSearch implements Search {
 	 * @return mutated solution (child)
 	 */
 	public Solution mutate(Problem problem, Solution child){
-		int type = (int) (Math.random()*4);
+		int type = (int) (Math.random()*6);
 		
 		//if (number selected adheres to probability requirement): mutate
 		if(type == 1){ 
