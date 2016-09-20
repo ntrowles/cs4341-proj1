@@ -99,6 +99,28 @@ public class GeneticAlgorithmSearch implements Search {
 		population.addAll(initPop);
 		
 		while(System.currentTimeMillis()/1000.0 < (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer)){
+			
+			//create new population
+			ArrayList<Solution> newPop = new ArrayList<Solution>();
+			
+			//culling-elitism
+			double cullThresh = 0.1;
+			double eliteThresh = 0.5;
+			int cullMax = popSize/5;
+			int eliteMax = popSize/5;
+			int numCulled = 0, numElite = 0;
+			for(int i = 0; i < population.size(); i++){
+				if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) <= cullThresh && numCulled < cullMax){
+					population.remove(i);
+					numCulled++;
+					i--;
+				}
+				else if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) >= eliteThresh && numElite < eliteMax){
+					newPop.add(population.get(i));
+					numElite++;
+				}
+			}
+
 			//log current generation
 			for(int i=0; i<population.size(); i++){
 				Solution curSol = population.get(i);
@@ -112,13 +134,12 @@ public class GeneticAlgorithmSearch implements Search {
 				}
 			}
 			
-			//create new population
-			ArrayList<Solution> newPop = new ArrayList<Solution>();
+			
 			
 			//create map
 			//Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
 			
-			for(int i=0; i < popSize; i++){
+			for(int i=numElite; i < popSize; i++){
 				//randomly select two children
 				logger.debug("Selecting parents for reproduction");
 				Solution x = randomSelection(prob, population);
@@ -169,6 +190,7 @@ public class GeneticAlgorithmSearch implements Search {
 		while(index < times.length){
 			if(System.currentTimeMillis()/1000.00 - start > times[index]){
 				index++;
+				theBest.put(times[index], bestSoln);
 			}
 			else if (fit.evaluateFitness(this.getBestSolution(population, prob, fit), prob) < fit.evaluateFitness(bestSoln, prob)){
 				bestSoln = this.getBestSolution(population, prob, fit);
@@ -190,10 +212,29 @@ public class GeneticAlgorithmSearch implements Search {
 			//create new population
 			ArrayList<Solution> newPop = new ArrayList<Solution>();
 			
+			//culling-elitism
+			double cullThresh = 0.1;
+			double eliteThresh = 0.5;
+			int cullMax = popSize/5;
+			int eliteMax = popSize/5;
+			int numCulled = 0, numElite = 0;
+			for(int i = 0; i < population.size(); i++){
+				if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) <= cullThresh && numCulled < cullMax){
+					population.remove(i);
+					numCulled++;
+					i--;
+				}
+				else if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) >= eliteThresh && numElite < eliteMax){
+					newPop.add(population.get(i));
+					numElite++;
+				}
+			}
+			
+			
 			//create map
 			//Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
 			
-			for(int i=0; i < popSize; i++){
+			for(int i=numElite; i < popSize; i++){
 				//randomly select two children
 				logger.debug("Selecting parents for reproduction");
 				Solution x = randomSelection(prob, population);
@@ -230,7 +271,7 @@ public class GeneticAlgorithmSearch implements Search {
 		double bestSolFit = fit.evaluateFitness(population.get(0), prob);
 		for(Solution sol : population){
 			double curFit = fit.evaluateFitness(sol, prob);
-			if(curFit < bestSolFit){
+			if(curFit < bestSolFit && curFit != Double.NaN){
 				bestSolFit = curFit;
 				bestSol = sol;
 			}
