@@ -65,7 +65,7 @@ public class GeneticAlgorithmSearch implements Search {
 		for(int i = 0; i<popSize; i++){
 			//randomly generate path
 			//randomly generate size of path
-			int randPathSize = (int)(Math.random() * 10); //random path size [index 0, index 9]
+			int randPathSize = (int)(Math.random() * 10) + 1; //random path size [1, 10]
 			List<String> path = new ArrayList<String>(randPathSize);
 			//randomly generate each operator in path
 			for(int j=0; j<randPathSize; j++){
@@ -120,12 +120,15 @@ public class GeneticAlgorithmSearch implements Search {
 			
 			for(int i=0; i < popSize; i++){
 				//randomly select two children
-				
+				logger.debug("Selecting parents for reproduction");
 				Solution x = randomSelection(prob, population);
 				Solution y = randomSelection(prob, population);
+				logger.debug("Parent 1: \n" + x.toString());
+				logger.debug("Parent 2: \n" + y.toString());
 				
 				//breed child
 				Solution child = reproduce(x,y);
+				logger.debug("Child: \n" + child.toString());
 				
 				//mutate child
 				child = mutate(prob, child);
@@ -264,15 +267,21 @@ public class GeneticAlgorithmSearch implements Search {
 		
 		//if (number selected adheres to probability requirement): mutate
 		if(type == 1){ 
-			return replace(problem, child); //Replace the problem child.
+			Solution sol = replace(problem, child); //Replace the problem child.
+			logger.debug("Child mutated, replacement occured. New child: \n" + sol.toString());
+			return sol;
 		}
 		
 		else if(type == 2){
-			return insert(problem, child); //Insert the problem child.
+			Solution sol = insert(problem, child); //Insert the problem child.
+			logger.debug("Child mutated, insertion occured. New child: \n" + sol.toString());
+			return sol;
 		}
 		
 		else if(type == 3){ //delete
-			return delete(problem, child); //Delete the problem child.
+			Solution sol = delete(problem, child); //Delete the problem child.
+			logger.debug("Child mutated, deletion occured. New child: \n" + sol.toString());
+			return sol;
 		}
 		else{
 			//return original child since mutation did not occur
