@@ -76,6 +76,25 @@ public class GeneticAlgorithmSearch implements Search {
 		population.addAll(initPop);
 		
 		while(System.currentTimeMillis()/1000.0 < (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer)){
+			for(int i = 0; i < population.size(); i++){
+				System.out.println("Before culling:");
+				System.out.println(i + ": " + population.get(i));
+			}
+			
+			//culling-elitism
+			double threshold = 0.0;
+			for(int i = 0; i < population.size(); i++){
+				if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) <= threshold){
+					//population.remove(i);
+					i--;
+				}
+			}
+			
+			for(int i = 0; i < population.size(); i++){
+				System.out.println("After culling:");
+				System.out.println(i + ": " + population.get(i));
+			}
+			
 			//check if any solution is correct
 			for(Solution solution : population){
 				if(fit.evaluateFitness(solution, prob) == 0){
