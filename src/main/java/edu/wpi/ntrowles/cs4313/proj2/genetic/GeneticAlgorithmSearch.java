@@ -99,26 +99,21 @@ public class GeneticAlgorithmSearch implements Search {
 		population.addAll(initPop);
 		
 		while(System.currentTimeMillis()/1000.0 < (initTimeMillis/1000.0 + prob.getMaxTime() - timeBuffer)){
-
-			for(int i = 0; i < population.size(); i++){
-				System.out.println("Before culling:");
-				System.out.println(i + ": " + population.get(i));
-			}
+			
+			//create new population
+			ArrayList<Solution> newPop = new ArrayList<Solution>();
 			
 			//culling-elitism
-			double threshold = 0.0;
+			double threshold = 0.1;
 			for(int i = 0; i < population.size(); i++){
 				if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) <= threshold){
-					//population.remove(i);
+					population.remove(i);
 					i--;
 				}
+				else{
+					newPop.add(population.get(i));
+				}
 			}
-			
-			for(int i = 0; i < population.size(); i++){
-				System.out.println("After culling:");
-				System.out.println(i + ": " + population.get(i));
-			}
-			
 
 			//log current generation
 			for(int i=0; i<population.size(); i++){
@@ -133,8 +128,7 @@ public class GeneticAlgorithmSearch implements Search {
 				}
 			}
 			
-			//create new population
-			ArrayList<Solution> newPop = new ArrayList<Solution>();
+			
 			
 			//create map
 			//Map<Solution, Double> probMap = generateProbabilities(prob, fit, population);
