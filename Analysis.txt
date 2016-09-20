@@ -1,38 +1,54 @@
-Q) In general, how did the number of steps required by greedy search compare to iterative deepening?
-A) Iterative deepening will find the solution with the fewest steps, assuming it has time to
-complete. If time runs out, because of the larger effective branching, it will still generally
-have fewer steps in its incomplete solution.
+What representation did you choose?
+We chose an ArrayList of strings to represent an arithmetic expression.  
+This is the most efficient for our purpose because ArrayLists have constant search 
+time when finding value of the operator, so it reduced overhead of the algorithm 
+compared to using a LinkedList. When we handled sequences of operators of different 
+sizes, we did it by first assigning an arbitrary cutoff point based on the length 
+of one of the crossed over parents.  We then looped continuously until we reached 
+the length of the chosen parent.  For every node before the cutoff point, we added 
+to the path for the new child (from the chosen parent). However, in the case that 
+the other parent was shorter than the chosen parent’s cutoff point, we would ignore 
+that other parent completely. The secondary situation essentially leads to a truncated 
+version of the original chosen parent.
 
-Q) How does the number of nodes expanded vary for the two techniques?
-A) Greedy search will expand fewer nodes than iterative deepening search. This is due to the fact
-that, in the worst case, an iterative deepening search will expand every node in a tree and 
-expands nodes that are at a lower depth than the goal-node multiple times. A greedy search will
-overlook expanding most of the nodes an iterative deepening search would because it only
-expands nodes on its path to the goal.
+How did you create your initial population? How large was your population?
+	Our initial population was created by generating a random path size from 1 to 10.  
+	This size was used to create an ArrayList of Strings that would contain a random set 
+	of operators.  For each place in the arraylist, the list of operators would be locally 
+	generated, one of them would be selected, and finally added to the path.  Our population 
+	was a constant of 20 for ease of testing.
+
+How did you select organisms?
+	Organism selection was pseudo random.  We first summed the reciprocals of the fitness 
+	functions for each solution.  From that we made a selection marker that is a random number 
+	from 0 to the sum.  Then we cycle through the population again and re-sum the heuristic 
+	functions until it reaches the selection marker.  At that point, we select that particular 
+	solution from the population.
+
+How did you implement crossover?
+	Our crossover function takes in two solutions, x and y.  We first took the six of X’s solution path.  
+	Then we made a cutoff point randomly from 1 to the cutoff point, such that we could partition x for 
+	a new solution.  A new path was then created based on both X and Y solutions, using a for loop that 
+	incorporates the random cutoff point.  The end number for either solution did not matter (as we are 
+	ending up at the same destination within one trial), so out of preference, the newEnd number is taken 
+	from Solution X. A child (the crossover result) is then created.
+
+How did you implement mutation?
+	Replacing
+		Generate random number x and y, if x < y we may proceed w/ mutation
+			Choose random path and random operator
+			Create new solution with appropriate changes make (i.e. selected 
+			operator replaces previous operator on selected path)
+		Else
+			Return old child
+	Deletion deletes a part of the path
+	Insertion adds an extra equation to the path
 
 
-Effective branching factor:
-As calculated on tests greedy_2 and iter_2
-A) Greedy Search: 
-depth 827, nodes expanded 828
-EBF ~ 1
-B) Iterative Deepening Search: 
-depth 10, nodes expanded 4190154
-summation from 0 to 10 of b^n = 4190154
-b+b^2+b^3+b^4+b^5+b^6+b^7+b^8+b^9+b^10 = 4190154
-b = EBF = 4.48
-In this test case Greedy Search hit no dead ends, and therefore  had an EBF of 1. It didn't
-expand any nodes that were not part of the solution. Iterative deepening should have an EBF
-close to 5 since it does look through nodes that aren't a part of the solution, and there were
-5 operations. In this case it had an EBF of 4.48. It is lower than 5 because the program timed
-during the 10th depth, so not all nodes on that depth were expanded. With a good heuristic and
-low amount of dead ends, Greedy search should have close to 1 EBF, but Iterative Deepening will
-be close to the number of operators.
 
 
-Test Suite
-0 - 2 steps both searches succeed
-1 - greedy 5 steps to solution, iterative 3 steps to solution
-2 - greedy ~830 steps before timed out, iterative 9 steps before timed out
-3 - greedy 49 steps to success (optimal solution), iterative 6 steps before timed out
-4 - impossible, both searches return 3 steps getting the closest solution possible
+How did you make use of culling/elitism? Did they help?
+	As part of our culling/elitism, we made a hashmap of probabilities based off our 
+fitness function. Each probability was mapped to an organism in the population, which 
+was 1/fitness function.  Then, we had a random selection method that picked organisms based off 
+Culling/Elitism - Discarding organisms below a certain threshold.

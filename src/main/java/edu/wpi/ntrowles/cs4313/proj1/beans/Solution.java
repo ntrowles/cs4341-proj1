@@ -75,6 +75,7 @@ public class Solution {
 	}
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
+		builder.append("\n");
 		double leftOperand = startNum;
 		
 		//Print path to get to endNum
@@ -120,5 +121,16 @@ public class Solution {
 			leftOperand = solution;
 		}
 		return builder.toString();
+	}
+	
+	public String printString(){
+		StringBuilder b = new StringBuilder();
+		b.append(startNum);
+		b.append(", ");
+		b.append(path);
+		b.append(", ");
+		b.append(endNum);
+		
+		return b.toString();
 	}
 }
