@@ -39,7 +39,7 @@ public class GeneticAlgorithmSearch implements Search {
 	}
 	
 	/**
-	 * Triggers the genetic search
+	 * Triggers the genetic search.
 	 * @param problem The problem state we are dealing with, used as basis to generate population.
 	 * @return The resulting solution as well as pertinent info such as time,
 	 * nodes expanded, and the kind of error encountered.
@@ -167,6 +167,14 @@ public class GeneticAlgorithmSearch implements Search {
 		return generateGeneticSolutionInfo(prob, bestSol, initTimeMillis, curGen, 1);
 	}
 	
+	/**
+	 * An overloaded version of the geneticAlgorithmSearch for the average quality
+	 * of the answer at specified time intervals.
+	 * @param prob Problem state to be dealt with.
+	 * @param fit Used for the fitness function.
+	 * @param times An array of doubles representing interested time intervals.
+	 * @return A Hashmap of the best solution at each interested time interval.
+	 */
 	public Map<Double, Solution> geneticAlgorithmSearch(Problem prob, Fitness fit, double[] times){
 		//Start time
 		double start = System.currentTimeMillis()/1000.00;
@@ -279,20 +287,6 @@ public class GeneticAlgorithmSearch implements Search {
 		return bestSol;
 	}
 
-/*
-	private Map<Solution, Double> generateProbabilities(Problem prob, Fitness fit, ArrayList<Solution> population) {
-		Map<Solution, Double> probMap = new HashMap<Solution,Double>();
-		
-		double goalNum = prob.getGoalNum();
-		
-		for(int i = 0; i < population.size(); i++){
-			probMap.put(population.get(i), 1/fit.evaluateFitness(population.get(i), prob));
-		}
-		
-		return probMap;
-	}
-*/
-
 
 	/**
 	 * Helper function to generate the solution info particular for the genetic algorithm.
@@ -376,7 +370,7 @@ public class GeneticAlgorithmSearch implements Search {
 	 * @return mutated solution (child)
 	 */
 	public Solution mutate(Problem problem, Solution child){
-		int type = (int) (Math.random()*4);
+		int type = (int) (Math.random()*6);
 		
 		//if (number selected adheres to probability requirement): mutate
 		if(type == 1){ 

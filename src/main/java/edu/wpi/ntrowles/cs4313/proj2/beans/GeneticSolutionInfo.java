@@ -6,7 +6,16 @@ import edu.wpi.ntrowles.cs4313.proj1.beans.Solution;
 import edu.wpi.ntrowles.cs4313.proj1.beans.SolutionInfo;
 
 public class GeneticSolutionInfo extends SolutionInfo {
-	//ctor
+	
+	/**
+	 * Constructor for GeneticSolutionInfo, meant for output.
+	 * @param sol Solution of interest
+	 * @param goalNum The number to get as close to as possible
+	 * @param timeToExec Elapsed time.
+	 * @param popSize Number of organisms.
+	 * @param numGenerations Iterations of the search.
+	 * @param errNum Kind of error, if any the search encounters.
+	 */
 	public GeneticSolutionInfo(Solution sol,  double goalNum, double timeToExec, int popSize, int numGenerations, int errNum){
 		super(sol, sol.getStartNum(), goalNum, timeToExec, popSize, numGenerations, errNum);
 	}
