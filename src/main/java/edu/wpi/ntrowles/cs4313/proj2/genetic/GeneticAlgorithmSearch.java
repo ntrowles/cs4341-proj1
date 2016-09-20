@@ -106,12 +106,15 @@ public class GeneticAlgorithmSearch implements Search {
 			//culling-elitism
 			double cullThresh = 0.1;
 			double eliteThresh = 0.5;
-			for(int i = 0; i < population.size(); i++){
-				if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) <= cullThresh){
+			int cullMax = popSize/5;
+			int eliteMax = popSize/5;
+			for(int i = 0, numCulled = 0, numElite = 0; i < population.size(); i++){
+				if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) <= cullThresh && numCulled < cullMax){
 					population.remove(i);
+					numCulled++;
 					i--;
 				}
-				else if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) >= eliteThresh){
+				else if(Math.abs(population.get(i).getEndNum() - prob.getStartNum())/(prob.getGoalNum() - prob.getStartNum()) >= eliteThresh && numElite < eliteMax){
 					newPop.add(population.get(i));
 				}
 			}
