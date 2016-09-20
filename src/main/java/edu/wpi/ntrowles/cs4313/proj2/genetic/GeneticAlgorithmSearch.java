@@ -104,7 +104,7 @@ public class GeneticAlgorithmSearch implements Search {
 			ArrayList<Solution> newPop = new ArrayList<Solution>();
 			
 			//culling-elitism
-			double cullThresh = 0.5;
+			double cullThresh = 0.25;
 			double eliteThresh = 0.5;
 			int cullMax = popSize/5;
 			int eliteMax = popSize/5;
