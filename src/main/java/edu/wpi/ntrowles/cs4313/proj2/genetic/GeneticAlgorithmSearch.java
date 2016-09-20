@@ -268,7 +268,7 @@ public class GeneticAlgorithmSearch implements Search {
 	 */
 	private Solution getBestSolution(ArrayList<Solution> population, Problem prob, Fitness fit){
 		Solution bestSol = population.get(0);
-		double bestSolFit = fit.evaluateFitness(population.get(0), prob);
+		double bestSolFit = Double.MAX_VALUE;
 		for(Solution sol : population){
 			double curFit = fit.evaluateFitness(sol, prob);
 			if(curFit < bestSolFit && curFit != Double.NaN){
