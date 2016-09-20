@@ -102,10 +102,10 @@ public class GeneticAlgorithmSearch implements Search {
 			
 			//create new population
 			ArrayList<Solution> newPop = new ArrayList<Solution>();
-			
+
 			//culling-elitism
-			double cullThresh = 0.375;
-			double eliteThresh = 0.5;
+			double cullThresh = 0.1;
+			double eliteThresh = 0.25;
 			int cullMax = popSize/5;
 			int eliteMax = popSize/5;
 			int numCulled = 0, numElite = 0;
@@ -198,7 +198,10 @@ public class GeneticAlgorithmSearch implements Search {
 		while(index < times.length){
 			if(System.currentTimeMillis()/1000.00 - start > times[index]){
 				index++;
-				theBest.put(times[index], bestSoln);
+				if(index < times.length){
+					theBest.put(times[index], bestSoln);
+				}
+				
 			}
 			else if (fit.evaluateFitness(this.getBestSolution(population, prob, fit), prob) < fit.evaluateFitness(bestSoln, prob)){
 				bestSoln = this.getBestSolution(population, prob, fit);
@@ -222,7 +225,7 @@ public class GeneticAlgorithmSearch implements Search {
 			
 			//culling-elitism
 			double cullThresh = 0.1;
-			double eliteThresh = 0.5;
+			double eliteThresh = 0.25;
 			int cullMax = popSize/5;
 			int eliteMax = popSize/5;
 			int numCulled = 0, numElite = 0;

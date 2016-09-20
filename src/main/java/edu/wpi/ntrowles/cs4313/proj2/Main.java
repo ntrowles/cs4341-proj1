@@ -43,7 +43,7 @@ public class Main {
 			
 		} else if (problem.getSearchType().equals("genetic")){
 			//Run genetic search on problem
-			GeneticAlgorithmSearch geneticSearch = new GeneticAlgorithmSearch(200);
+			GeneticAlgorithmSearch geneticSearch = new GeneticAlgorithmSearch(2000);
 			solutionInfo = geneticSearch.search(problem);
 		} else {
 			System.out.println("Unable to determine search to execute: " + problem.getSearchType() + "; use 'greedy' or 'iterative'");
